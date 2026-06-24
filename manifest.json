@@ -1,0 +1,32 @@
+{
+  "name": "¿Qué personalidad tienes?",
+  "short_name": "Personalidad",
+  "description": "Test de autorreflexión que estima tu tendencia en situaciones sociales, del 1 al 10.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#e9e6dc",
+  "theme_color": "#2e4a45",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

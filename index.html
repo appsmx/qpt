@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#2e4a45" />
+  <meta name="description" content="Un cuestionario de autorreflexión que estima tu tendencia en situaciones sociales, en una escala del 1 al 10." />
+  <title>¿Qué personalidad tienes?</title>
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="icons/icon-192.png" />
+  <link rel="apple-touch-icon" href="icons/icon-192.png" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Botón de sonido (siempre visible) -->
+  <button id="sound-toggle" class="sound-toggle" aria-label="Activar o desactivar sonido" title="Sonido">
+    <span id="sound-icon">♪</span>
+  </button>
+
+  <main class="app">
+
+    <!-- PANTALLA DE INICIO -->
+    <section id="screen-start" class="screen active">
+      <div class="card">
+        <h1 class="title">¿Qué personalidad<br />tienes?</h1>
+        <p class="subtitle">Test de autorreflexión</p>
+        <p class="intro">
+          Responde con sinceridad unas preguntas sobre cómo actúas en
+          situaciones sociales. Al final obtendrás un resultado del
+          <strong>1 al 10</strong> que estima tu tendencia: desde
+          <em>permitir el abuso</em> hasta <em>ejercer el abuso</em>.
+        </p>
+
+        <div id="best-score" class="best-score hidden">
+          <span>Tu último resultado: <strong id="best-score-value">—</strong>/10</span>
+        </div>
+
+        <button id="btn-start" class="btn btn-primary">Comenzar</button>
+
+        <p class="disclaimer">
+          Este test es solo para reflexión personal y entretenimiento.
+          No es un diagnóstico psicológico. Si tú o alguien que conoces
+          sufre violencia o acoso, busca ayuda de un profesional o de una
+          persona de confianza.
+        </p>
+      </div>
+    </section>
+
+    <!-- PANTALLA DE PREGUNTAS -->
+    <section id="screen-quiz" class="screen">
+      <div class="card">
+        <div class="progress">
+          <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
+          <span id="progress-text" class="progress-text">1 / 10</span>
+        </div>
+
+        <h2 id="question-text" class="question"></h2>
+
+        <div id="answers" class="answers"></div>
+
+        <button id="btn-back" class="btn btn-ghost">← Atrás</button>
+      </div>
+    </section>
+
+    <!-- PANTALLA DE RESULTADO -->
+    <section id="screen-result" class="screen">
+      <div class="card">
+        <p class="result-label">Tu resultado</p>
+        <div class="score-circle">
+          <span id="result-score">5</span><small>/10</small>
+        </div>
+
+        <div class="scale">
+          <div class="scale-bar"><div id="scale-marker" class="scale-marker"></div></div>
+          <div class="scale-labels">
+            <span>Abusado</span>
+            <span>Equilibrio</span>
+            <span>Abusador</span>
+          </div>
+        </div>
+
+        <h2 id="result-title" class="result-title"></h2>
+        <p id="result-desc" class="result-desc"></p>
+        <p id="result-advice" class="result-advice"></p>
+
+        <button id="btn-retry" class="btn btn-primary">Volver a intentar</button>
+        <button id="btn-home" class="btn btn-ghost">Inicio</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
