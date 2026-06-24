@@ -42,9 +42,9 @@ Como tu juego vive en `/qpt/` (una subcarpeta), necesitas publicar el archivo en
        "relation": ["delegate_permission/common.handle_all_urls"],
        "target": {
          "namespace": "android_app",
-         "package_name": "io.github.mariscosjasu.twa",
+         "package_name": "io.github.appsmx.twa",
          "sha256_cert_fingerprints": [
-           "17:21:64:67:45:42:83:7D:69:BB:2E:77:00:7D:54:50:55:48:BF:B8:D0:29:8D:D2:CF:6C:38:0B:87:F8:02:3B"
+           "B2:9D:79:D6:89:0C:DA:9F:3E:08:A3:F9:FD:7D:99:F6:12:F9:81:F8:AC:50:89:A7:16:80:D1:64:C6:CB:22:5C"
          ]
        }
      }

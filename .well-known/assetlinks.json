@@ -3,10 +3,9 @@
     "relation": ["delegate_permission/common.handle_all_urls"],
     "target": {
       "namespace": "android_app",
-      "package_name": "io.github.mariscosjasu.twa",
+      "package_name": "io.github.appsmx.twa",
       "sha256_cert_fingerprints": [
-        "AD:19:BD:FD:55:3D:B3:14:A9:15:2C:5C:19:B1:76:A5:AB:F4:52:C7:27:94:3D:01:40:96:B7:D2:69:66:9D:B7",
-        "17:21:64:67:45:42:83:7D:69:BB:2E:77:00:7D:54:50:55:48:BF:B8:D0:29:8D:D2:CF:6C:38:0B:87:F8:02:3B"
+        "B2:9D:79:D6:89:0C:DA:9F:3E:08:A3:F9:FD:7D:99:F6:12:F9:81:F8:AC:50:89:A7:16:80:D1:64:C6:CB:22:5C"
       ]
     }
   }

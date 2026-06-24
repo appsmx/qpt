@@ -1,7 +1,8 @@
 {
+  "id": "/qpt/",
   "name": "¿Qué personalidad tienes?",
   "short_name": "Personalidad",
-  "description": "Test de autorreflexión que estima tu tendencia en situaciones sociales, del 1 al 10.",
+  "description": "Test de autorreflexión que estima tu tendencia en situaciones sociales, en una escala del 1 al 100.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
@@ -9,6 +10,8 @@
   "background_color": "#e9e6dc",
   "theme_color": "#2e4a45",
   "lang": "es",
+  "dir": "ltr",
+  "categories": ["entertainment", "lifestyle", "education"],
   "icons": [
     {
       "src": "icons/icon-192.png",
@@ -27,6 +30,22 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "screenshots/screenshot-1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Pantalla de inicio del test"
+    },
+    {
+      "src": "screenshots/screenshot-2.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Resultado con tu puntuación del 1 al 100"
     }
   ]
 }
