@@ -17,7 +17,7 @@ usando el archivo **`assetlinks.json`** (el que me pasaste).
 2. En **Build and deployment → Source**: elige **Deploy from a branch**.
 3. Branch: **`main`**, carpeta: **`/ (root)`** → **Save**.
 4. Espera 1-2 minutos. Tu PWA quedará en:
-   `https://mariscosjasu.github.io/qpt/`
+   `https://appsmx.github.io/qpt/`
 
 ### Paso 2 · Publica el `assetlinks.json` en la RAÍZ del dominio ⚠️ (clave)
 
@@ -25,14 +25,14 @@ Este es el detalle que más falla. Android **siempre** busca el archivo en la ra
 dominio, nunca en una subcarpeta:
 
 ```
-https://mariscosjasu.github.io/.well-known/assetlinks.json   ✅ (aquí lo busca Android)
-https://mariscosjasu.github.io/qpt/.well-known/assetlinks.json   ❌ (NO lo encuentra)
+https://appsmx.github.io/.well-known/assetlinks.json   ✅ (aquí lo busca Android)
+https://appsmx.github.io/qpt/.well-known/assetlinks.json   ❌ (NO lo encuentra)
 ```
 
 Como tu juego vive en `/qpt/` (una subcarpeta), necesitas publicar el archivo en el
 **sitio raíz** de tu usuario. Para eso:
 
-1. Crea un repositorio nuevo llamado **exactamente** `mariscosjasu.github.io`.
+1. Crea un repositorio nuevo llamado **exactamente** `appsmx.github.io`.
 2. Dentro, crea la carpeta y archivo: `.well-known/assetlinks.json`
    con **este contenido** (es una copia del que está en este repo):
 
@@ -52,7 +52,7 @@ Como tu juego vive en `/qpt/` (una subcarpeta), necesitas publicar el archivo en
    ```
 3. Activa **Pages** en ese repo (`main` / root).
 4. Verifica abriendo en el navegador:
-   `https://mariscosjasu.github.io/.well-known/assetlinks.json`
+   `https://appsmx.github.io/.well-known/assetlinks.json`
    Debe mostrar el JSON.
 
 > Nota: en este repo (`qpt`) también dejé una copia en `.well-known/assetlinks.json`.
@@ -92,7 +92,7 @@ no deja reemplazar una app si la firma no coincide.
   dos APK firmados distinto.
 
 **La opción que NUNCA da conflicto:** comparte el **enlace de la web**
-(`https://mariscosjasu.github.io/qpt/`) y diles que usen **"Agregar a la pantalla de
+(`https://appsmx.github.io/qpt/`) y diles que usen **"Agregar a la pantalla de
 inicio" / "Instalar app"** desde el navegador. Eso instala la PWA sin firmas de APK,
 así que jamás aparece el conflicto. Es la forma más sencilla para que el público
 general la tenga en su celular.

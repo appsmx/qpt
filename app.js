@@ -300,8 +300,8 @@ const STORAGE_NAME = "qpt_name";
 let playerName = "";
 
 // URL pública del juego (se usa al compartir para promocionarlo)
-const SHARE_URL = "https://mariscosjasu.github.io/qpt/";
-const SHARE_URL_CORTA = "mariscosjasu.github.io/qpt";
+const SHARE_URL = "https://appsmx.github.io/qpt/";
+const SHARE_URL_CORTA = "appsmx.github.io/qpt";
 
 // Guardamos el último resultado para poder compartirlo
 let lastResult = { score: 5, title: "" };

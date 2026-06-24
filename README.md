@@ -67,7 +67,7 @@ python3 -m http.server 8080
 ### Publicar gratis con GitHub Pages
 
 En GitHub: **Settings → Pages → Branch: `main` / carpeta `/root`**. En unos minutos
-tendrás una URL pública `https://mariscosjasu.github.io/qpt/`.
+tendrás una URL pública `https://appsmx.github.io/qpt/`.
 
 ## Cómo generar el APK
 
