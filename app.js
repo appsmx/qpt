@@ -10,12 +10,16 @@
 "use strict";
 
 /* -----------------------------------------------------------
-   1) PREGUNTAS
+   1) BANCO DE PREGUNTAS
+   En cada partida se eligen SESSION_SIZE preguntas al azar de este
+   banco, y tanto las preguntas como sus opciones se barajan. Así
+   rara vez una sesión es igual a otra.
+
    type: "text"  -> opciones con { text, value }
    type: "image" -> opciones con { img, label, value }
    value: 0 = tendencia a ser abusado | 1 = equilibrio | 2 = tendencia a abusar
 ----------------------------------------------------------- */
-const QUESTIONS = [
+const QUESTION_POOL = [
   { type: "text", q: "Cuando alguien te critica frente a otras personas...", options: [
     { text: "Me callo y pienso que seguramente tienen razón.", value: 0 },
     { text: "Lo hablo con calma para entender su punto.", value: 1 },
@@ -141,6 +145,61 @@ const QUESTIONS = [
     { text: "Ser injusto con alguien.", value: 1 },
     { text: "Perder el control o que no me obedezcan.", value: 2 },
   ]},
+  { type: "text", q: "Cuando alguien no cumple lo que te prometió...", options: [
+    { text: "Lo justifico y no digo nada.", value: 0 },
+    { text: "Le pregunto con calma qué pasó.", value: 1 },
+    { text: "Lo expongo y lo hago sentir mal.", value: 2 },
+  ]},
+  { type: "text", q: "Si alguien se cuela delante de ti en una fila...", options: [
+    { text: "No digo nada para evitar problemas.", value: 0 },
+    { text: "Le aviso con calma que había fila.", value: 1 },
+    { text: "Le reclamo de forma agresiva.", value: 2 },
+  ]},
+  { type: "text", q: "Cuando das tu opinión en un grupo...", options: [
+    { text: "Me da miedo que me juzguen y casi no hablo.", value: 0 },
+    { text: "La comparto con naturalidad.", value: 1 },
+    { text: "La impongo aunque interrumpa a otros.", value: 2 },
+  ]},
+  { type: "text", q: "Si un amigo te pide un favor que no puedes hacer...", options: [
+    { text: "Digo que sí aunque me perjudique.", value: 0 },
+    { text: "Le explico con honestidad por qué no puedo.", value: 1 },
+    { text: "Lo trato mal por haberme molestado.", value: 2 },
+  ]},
+  { type: "text", q: "Cuando alguien cercano tiene éxito...", options: [
+    { text: "Siento que yo nunca lo lograré.", value: 0 },
+    { text: "Me alegro sinceramente por esa persona.", value: 1 },
+    { text: "Busco restarle importancia a su logro.", value: 2 },
+  ]},
+  { type: "text", q: "Cuando alguien te levanta la voz...", options: [
+    { text: "Me paralizo y termino obedeciendo.", value: 0 },
+    { text: "Mantengo la calma y respondo.", value: 1 },
+    { text: "Levanto la voz todavía más que el otro.", value: 2 },
+  ]},
+  { type: "text", q: "Al tomar una decisión que afecta a otros...", options: [
+    { text: "Hago lo que ellos prefieran, aunque no me guste.", value: 0 },
+    { text: "Busco que sea buena para todos.", value: 1 },
+    { text: "Decido yo, sin consultar a nadie.", value: 2 },
+  ]},
+  { type: "image", q: "Elige la planta con la que te identificas:", options: [
+    { img: "🥀", label: "Marchita", value: 0 },
+    { img: "🌿", label: "Hierba sana", value: 1 },
+    { img: "🌵", label: "Cactus con espinas", value: 2 },
+  ]},
+  { type: "image", q: "Elige una expresión:", options: [
+    { img: "😞", label: "Apagado", value: 0 },
+    { img: "🙂", label: "Sereno", value: 1 },
+    { img: "😤", label: "Desafiante", value: 2 },
+  ]},
+  { type: "image", q: "¿Qué objeto eliges?", options: [
+    { img: "🛡️", label: "Escudo / defensa", value: 0 },
+    { img: "⚖️", label: "Balanza / equilibrio", value: 1 },
+    { img: "⚔️", label: "Espadas / ataque", value: 2 },
+  ]},
+  { type: "image", q: "Elige el paisaje que va contigo:", options: [
+    { img: "🌫️", label: "Niebla", value: 0 },
+    { img: "🌅", label: "Amanecer", value: 1 },
+    { img: "🌋", label: "Volcán", value: 2 },
+  ]},
 ];
 
 /* -----------------------------------------------------------
@@ -172,9 +231,31 @@ const RESULTS = [
 /* -----------------------------------------------------------
    3) ESTADO DEL JUEGO
 ----------------------------------------------------------- */
+const SESSION_SIZE = 15;    // preguntas por partida (elegidas al azar del banco)
+let questions = [];         // preguntas activas de esta partida
 let current = 0;            // índice de pregunta actual
-let answers = new Array(QUESTIONS.length).fill(null); // valores elegidos
+let answers = [];           // respuestas elegidas
 const STORAGE_KEY = "qpt_last_score";
+
+// Mezcla (Fisher-Yates) devolviendo una copia, sin alterar el original
+function shuffle(arr) {
+  const a = arr.slice();
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    const tmp = a[i]; a[i] = a[j]; a[j] = tmp;
+  }
+  return a;
+}
+
+// Construye una partida nueva: preguntas al azar y opciones barajadas
+function buildSession() {
+  const size = Math.min(SESSION_SIZE, QUESTION_POOL.length);
+  questions = shuffle(QUESTION_POOL)
+    .slice(0, size)
+    .map((q) => ({ type: q.type, q: q.q, options: shuffle(q.options) }));
+  answers = new Array(questions.length).fill(null);
+  current = 0;
+}
 
 /* -----------------------------------------------------------
    4) REFERENCIAS AL DOM
@@ -217,7 +298,7 @@ function showScreen(name) {
    6) RENDER DE PREGUNTAS
 ----------------------------------------------------------- */
 function renderQuestion() {
-  const item = QUESTIONS[current];
+  const item = questions[current];
   els.questionText.textContent = item.q;
   els.answers.innerHTML = "";
 
@@ -238,9 +319,9 @@ function renderQuestion() {
   });
 
   // Progreso
-  const pct = ((current) / QUESTIONS.length) * 100;
+  const pct = ((current) / questions.length) * 100;
   els.progressFill.style.width = pct + "%";
-  els.progressText.textContent = (current + 1) + " / " + QUESTIONS.length;
+  els.progressText.textContent = (current + 1) + " / " + questions.length;
 
   // Botón atrás
   els.btnBack.style.visibility = current === 0 ? "hidden" : "visible";
@@ -253,7 +334,7 @@ function selectAnswer(optionIndex) {
   // Marca visual breve y avanza
   renderQuestion();
   setTimeout(() => {
-    if (current < QUESTIONS.length - 1) {
+    if (current < questions.length - 1) {
       current++;
       renderQuestion();
     } else {
@@ -268,9 +349,9 @@ function selectAnswer(optionIndex) {
 function computeScore() {
   let sum = 0;
   answers.forEach((optIndex, qIndex) => {
-    if (optIndex !== null) sum += QUESTIONS[qIndex].options[optIndex].value;
+    if (optIndex !== null) sum += questions[qIndex].options[optIndex].value;
   });
-  const maxSum = QUESTIONS.length * 2; // cada pregunta máximo 2
+  const maxSum = questions.length * 2; // cada pregunta máximo 2
   let score = Math.round(1 + (sum / maxSum) * 9);
   if (score < 1) score = 1;
   if (score > 10) score = 10;
@@ -425,8 +506,7 @@ els.btnStart.addEventListener("click", () => {
   initAudio();
   if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
   startAmbient();
-  current = 0;
-  answers = new Array(QUESTIONS.length).fill(null);
+  buildSession();
   renderQuestion();
   showScreen("quiz");
 });
@@ -436,8 +516,7 @@ els.btnBack.addEventListener("click", () => {
 });
 
 els.btnRetry.addEventListener("click", () => {
-  current = 0;
-  answers = new Array(QUESTIONS.length).fill(null);
+  buildSession();
   renderQuestion();
   showScreen("quiz");
 });

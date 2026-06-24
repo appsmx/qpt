@@ -10,7 +10,9 @@ abuso* (10), pasando por un punto sano de **equilibrio/asertividad** en el centr
 
 ## Características
 
-- 🎯 **25 fases** (preguntas): de texto y de imágenes (elegir entre 3 opciones).
+- 🎯 **Preguntas aleatorias**: cada partida elige **15 preguntas al azar** de un
+  **banco de 36** (de texto y de imágenes), y baraja también el orden de las opciones.
+  Así rara vez una sesión es igual a otra.
 - 🧮 **Puntuación del 1 al 10** con 5 perfiles de resultado.
 - 🎨 Estilo **retro minimalista** (paleta calmada tipo terapia, tipografía monoespaciada).
 - 🔊 **Sonidos de calma** generados en el dispositivo (ambiente relajante + tonos suaves).
@@ -73,8 +75,11 @@ Al ser una PWA, puedes empaquetarla en un APK sin reescribir nada:
 
 ## Personalizar las preguntas
 
-Todas las preguntas están en el arreglo `QUESTIONS` dentro de `app.js`. Cada opción
-tiene un `value`:
+Todas las preguntas están en el arreglo `QUESTION_POOL` dentro de `app.js`. En cada
+partida se eligen al azar `SESSION_SIZE` preguntas (15 por defecto) y se barajan sus
+opciones. Para que salgan más o menos preguntas por partida, cambia `SESSION_SIZE`.
+
+Cada opción tiene un `value`:
 
 - `0` → tendencia a ser **abusado**
 - `1` → **equilibrio**
