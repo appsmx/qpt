@@ -69,6 +69,34 @@ Como tu juego vive en `/qpt/` (una subcarpeta), necesitas publicar el archivo en
 > La verificación puede tardar unos minutos la primera vez. Si abre con barra,
 > desinstala, espera y reinstala tras confirmar el paso 2.
 
+### ⚠️ Error "No se instaló la app debido a un conflicto con un paquete"
+
+Este error aparece cuando el celular **ya tiene instalada** una versión de la app,
+pero el APK nuevo está **firmado con una llave diferente**. Android, por seguridad,
+no deja reemplazar una app si la firma no coincide.
+
+**Solución inmediata (para quien ya la tenía instalada):**
+1. Mantén presionado el ícono de **"Personalidad"** → **Desinstalar**.
+2. Vuelve a instalar el APK nuevo. Listo.
+
+**Cómo evitar que les pase a otras personas (importante):**
+- **Usa siempre la MISMA llave de firma.** Cuando PWABuilder te genera el paquete,
+  descarga también un archivo de firma (`signing.keystore`) y su contraseña.
+  **Guárdalos** y, al regenerar el APK, elige la opción *"I have a signing key" /
+  "Use mine"* y sube esa misma llave. Si generas una llave nueva cada vez, todos los
+  que ya instalaron tendrán el conflicto.
+- **Reparte un solo archivo APK** (el mismo para todos), de preferencia subiéndolo a
+  un **GitHub Release** del repo `qpt`. Así todos descargan exactamente el mismo
+  archivo firmado con la misma llave y nunca chocan entre versiones.
+- Quienes **nunca** instalaron la app no verán este error: es solo un choque entre
+  dos APK firmados distinto.
+
+**La opción que NUNCA da conflicto:** comparte el **enlace de la web**
+(`https://mariscosjasu.github.io/qpt/`) y diles que usen **"Agregar a la pantalla de
+inicio" / "Instalar app"** desde el navegador. Eso instala la PWA sin firmas de APK,
+así que jamás aparece el conflicto. Es la forma más sencilla para que el público
+general la tenga en su celular.
+
 ---
 
 ## 🅱️ Camino B — Capacitor (APK 100% offline, sin depender de hosting)

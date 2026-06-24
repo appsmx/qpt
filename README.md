@@ -10,9 +10,12 @@ abuso* (10), pasando por un punto sano de **equilibrio/asertividad** en el centr
 
 ## Características
 
-- 🎯 **25 fases por partida**, elegidas al azar de un **banco de 45 preguntas**
+- 🎯 **25 fases por partida**, elegidas al azar de un **banco de 33 preguntas**
   (de texto y de imágenes). También se baraja el orden de las preguntas y de sus
   opciones, así rara vez una sesión es igual a otra.
+- 🧠 **5 opciones por pregunta** basadas en los estilos reales de respuesta ante el
+  conflicto (someterse, evitar/quedarse en blanco, ser asertivo, dominar, atacar),
+  para que ninguna respuesta se sienta ambigua.
 - 🧮 **Puntuación del 1 al 10** con 5 perfiles de resultado.
 - 🎨 Estilo **retro minimalista** (paleta calmada tipo terapia, tipografía monoespaciada).
 - 🔊 **Sonidos de calma** generados en el dispositivo (ambiente relajante + tonos suaves).
@@ -86,10 +89,12 @@ partida se eligen al azar `SESSION_SIZE` preguntas (25 por defecto) y se barajan
 opciones. Para que salgan más o menos preguntas por partida, cambia `SESSION_SIZE`.
 Para dar más variedad a futuras partidas, simplemente agrega más preguntas al banco.
 
-Cada opción tiene un `value`:
+Cada opción tiene un `value` (estilo de respuesta ante el conflicto):
 
-- `0` → tendencia a ser **abusado**
-- `1` → **equilibrio**
-- `2` → tendencia a **abusar**
+- `0` → **someterse / complacer** (tendencia a ser abusado)
+- `1` → **evitar / quedarse en blanco / ignorar** (pasivo)
+- `2` → **asertivo / equilibrado** (punto sano)
+- `3` → **dominar / imponer**
+- `4` → **atacar / humillar** (tendencia a abusar)
 
 Los textos de los resultados están en el arreglo `RESULTS`.
