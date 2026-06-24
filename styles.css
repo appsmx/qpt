@@ -314,6 +314,53 @@ body {
   margin-bottom: 8px;
 }
 
+/* ---------- Compartir ---------- */
+.btn-share {
+  background: #4a6f8a;
+  color: #fff;
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+.btn-share:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow); }
+
+.share-menu {
+  margin-top: 4px;
+  border: 1px dashed var(--line);
+  border-radius: 4px;
+  padding: 12px;
+  background: var(--bg-2);
+}
+.share-menu-title {
+  font-size: 0.78rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-bottom: 10px;
+}
+.share-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+.share-btn {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  font-size: 0.85rem;
+  padding: 10px;
+  border: 2px solid var(--ink);
+  border-radius: 4px;
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+.share-btn:active { transform: translate(1px, 1px); }
+.copy-ok {
+  font-size: 0.78rem;
+  color: var(--accent-dark);
+  margin-top: 8px;
+}
+
 /* ---------- Botón sonido ---------- */
 .sound-toggle {
   position: fixed;

@@ -83,6 +83,21 @@
         <p id="result-desc" class="result-desc"></p>
         <p id="result-advice" class="result-advice"></p>
 
+        <button id="btn-share" class="btn btn-share">📣 Compartir mi resultado</button>
+
+        <!-- Opciones de compartir (se muestran si no hay compartir nativo) -->
+        <div id="share-menu" class="share-menu hidden">
+          <p class="share-menu-title">Compartir en:</p>
+          <div class="share-grid">
+            <a id="share-wa" class="share-btn" target="_blank" rel="noopener">WhatsApp</a>
+            <a id="share-fb" class="share-btn" target="_blank" rel="noopener">Facebook</a>
+            <a id="share-tw" class="share-btn" target="_blank" rel="noopener">X</a>
+            <a id="share-tg" class="share-btn" target="_blank" rel="noopener">Telegram</a>
+          </div>
+          <button id="btn-copy" class="btn btn-ghost">📋 Copiar enlace y texto</button>
+          <p id="copy-ok" class="copy-ok hidden">¡Copiado! Ya puedes pegarlo donde quieras.</p>
+        </div>
+
         <button id="btn-retry" class="btn btn-primary">Volver a intentar</button>
         <button id="btn-home" class="btn btn-ghost">Inicio</button>
       </div>

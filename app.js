@@ -282,6 +282,12 @@ let current = 0;            // índice de pregunta actual
 let answers = [];           // respuestas elegidas
 const STORAGE_KEY = "qpt_last_score";
 
+// URL pública del juego (se usa al compartir para promocionarlo)
+const SHARE_URL = "https://mariscosjasu.github.io/qpt/";
+
+// Guardamos el último resultado para poder compartirlo
+let lastResult = { score: 5, title: "" };
+
 // Mezcla (Fisher-Yates) devolviendo una copia, sin alterar el original
 function shuffle(arr) {
   const a = arr.slice();
@@ -328,6 +334,14 @@ const els = {
   bestScoreValue: document.getElementById("best-score-value"),
   soundToggle: document.getElementById("sound-toggle"),
   soundIcon: document.getElementById("sound-icon"),
+  btnShare: document.getElementById("btn-share"),
+  shareMenu: document.getElementById("share-menu"),
+  shareWa: document.getElementById("share-wa"),
+  shareFb: document.getElementById("share-fb"),
+  shareTw: document.getElementById("share-tw"),
+  shareTg: document.getElementById("share-tg"),
+  btnCopy: document.getElementById("btn-copy"),
+  copyOk: document.getElementById("copy-ok"),
 };
 
 /* -----------------------------------------------------------
@@ -416,12 +430,75 @@ function showResult(score) {
   els.resultDesc.textContent = tier.desc;
   els.resultAdvice.textContent = tier.advice;
 
+  // Guardamos el resultado para compartir y preparamos los enlaces
+  lastResult = { score: score, title: tier.title };
+  els.shareMenu.classList.add("hidden");
+  els.copyOk.classList.add("hidden");
+
   // Marcador en la escala (1 -> 0%, 10 -> 100%)
   const pct = ((score - 1) / 9) * 100;
   els.scaleMarker.style.left = pct + "%";
 
   showScreen("result");
   playResult();
+}
+
+/* -----------------------------------------------------------
+   7b) COMPARTIR RESULTADO (promociona el juego)
+----------------------------------------------------------- */
+function buildShareText() {
+  return (
+    "Mi resultado en \"¿Qué personalidad tienes?\" fue " +
+    lastResult.score + "/10: " + lastResult.title + ". " +
+    "¿Y tú qué personalidad tienes? Descúbrelo aquí 👉"
+  );
+}
+
+async function shareResult() {
+  const text = buildShareText();
+  // 1) Intentar el compartir nativo del dispositivo (móvil: WhatsApp, Instagram, etc.)
+  if (navigator.share) {
+    try {
+      await navigator.share({
+        title: "¿Qué personalidad tienes?",
+        text: text,
+        url: SHARE_URL,
+      });
+      return;
+    } catch (e) {
+      // El usuario canceló o no se pudo: mostramos el menú de opciones
+    }
+  }
+  // 2) Si no hay compartir nativo, mostramos los botones de cada red
+  buildShareLinks(text);
+  els.shareMenu.classList.toggle("hidden");
+}
+
+function buildShareLinks(text) {
+  const fullText = text + " " + SHARE_URL;
+  const eText = encodeURIComponent(fullText);
+  const eUrl = encodeURIComponent(SHARE_URL);
+  const eShort = encodeURIComponent(text);
+  els.shareWa.href = "https://wa.me/?text=" + eText;
+  els.shareFb.href = "https://www.facebook.com/sharer/sharer.php?u=" + eUrl + "&quote=" + eShort;
+  els.shareTw.href = "https://twitter.com/intent/tweet?text=" + eShort + "&url=" + eUrl;
+  els.shareTg.href = "https://t.me/share/url?url=" + eUrl + "&text=" + eShort;
+}
+
+async function copyShareText() {
+  const fullText = buildShareText() + " " + SHARE_URL;
+  try {
+    await navigator.clipboard.writeText(fullText);
+  } catch (e) {
+    // Fallback: seleccionar con un campo temporal
+    const ta = document.createElement("textarea");
+    ta.value = fullText;
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand("copy"); } catch (err) {}
+    document.body.removeChild(ta);
+  }
+  els.copyOk.classList.remove("hidden");
 }
 
 /* -----------------------------------------------------------
@@ -570,6 +647,9 @@ els.btnHome.addEventListener("click", () => {
   loadBestScore();
   showScreen("start");
 });
+
+els.btnShare.addEventListener("click", () => { shareResult(); });
+els.btnCopy.addEventListener("click", () => { copyShareText(); });
 
 els.soundToggle.addEventListener("click", () => {
   initAudio();

@@ -17,6 +17,8 @@ abuso* (10), pasando por un punto sano de **equilibrio/asertividad** en el centr
 - 🎨 Estilo **retro minimalista** (paleta calmada tipo terapia, tipografía monoespaciada).
 - 🔊 **Sonidos de calma** generados en el dispositivo (ambiente relajante + tonos suaves).
 - 💾 **Guarda tu último resultado** en el dispositivo (`localStorage`).
+- 📣 **Compartir resultado** en redes (WhatsApp, Facebook, X, Telegram, Instagram vía
+  compartir nativo del móvil) con un texto que promociona el juego e incluye el enlace.
 - 📴 **Funciona sin internet** (offline) gracias a un *service worker*.
 - 📱 **Instalable** como app (PWA) en móvil y PC; puede empaquetarse como **APK**.
 
