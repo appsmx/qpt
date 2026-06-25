@@ -1,0 +1,15 @@
+# Configuración del Worker de Cloudflare para "¿Qué personalidad tienes?"
+name = "qpt-api"
+main = "worker.js"
+compatibility_date = "2024-11-01"
+
+# Binding de Workers AI (para el chat)
+[ai]
+binding = "AI"
+
+# Binding de KV para las estadísticas globales.
+# Crea el namespace con:   npx wrangler kv namespace create STATS
+# y pega aquí el "id" que te devuelve.
+[[kv_namespaces]]
+binding = "STATS"
+id = "PEGA_AQUI_EL_ID_DE_TU_KV"
