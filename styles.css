@@ -842,3 +842,29 @@ body { transition: background-color 0.6s ease, color 0.5s ease; }
 @media (prefers-reduced-motion: reduce) {
   [data-mode="deep"] .vignette { animation: none !important; opacity: 0.8 !important; }
 }
+
+
+/* ---------- Gustos sugeridos (música y cine) ---------- */
+.taste-box {
+  text-align: left;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  background: var(--bg-2);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 4px 4px 0;
+  padding: 12px 14px;
+  margin: 8px 0;
+  animation: slideUp 0.35s ease both;
+}
+.taste-box .taste-title {
+  font-weight: bold;
+  color: var(--accent-dark);
+  margin-bottom: 6px;
+}
+.taste-box .taste-line { margin: 2px 0; }
+.taste-box .taste-note {
+  font-size: 0.74rem;
+  color: var(--ink-soft);
+  margin-top: 6px;
+}
+.taste-box.hidden { display: none; }

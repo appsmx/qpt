@@ -383,6 +383,7 @@ const els = {
   btnCloseAch: document.getElementById("btn-close-ach"),
   toast: document.getElementById("toast"),
   globalStats: document.getElementById("global-stats"),
+  tasteBox: document.getElementById("taste-box"),
   btnChat: document.getElementById("btn-chat"),
   chatModal: document.getElementById("chat-modal"),
   chatMessages: document.getElementById("chat-messages"),
@@ -504,6 +505,7 @@ function showResult(score) {
   els.copyOk.classList.add("hidden");
   els.storyHint.classList.add("hidden");
   els.predictionBox.classList.add("hidden");
+  renderTaste();
   registerPlay(score, tier.title);
 
   // Chat: reinicia conversación para este resultado
@@ -1053,6 +1055,89 @@ function dominantStyle() {
   let best = 0;
   for (let i = 1; i < tally.length; i++) if (tally[i] > tally[best]) best = i;
   return best;
+}
+
+/* -----------------------------------------------------------
+   9b-bis) GUSTOS SUGERIDOS: música y cine
+   Se infieren de forma INDIRECTA a partir del estilo de respuesta
+   dominante (0..4) que ya producen las preguntas. No se añaden
+   preguntas nuevas ni se revela nada durante el test: el gusto solo
+   aparece al final, junto con el resultado.
+   Índice por estilo: 0 someterse | 1 evitar | 2 asertivo | 3 dominar | 4 atacar
+----------------------------------------------------------- */
+const TASTE = {
+  es: {
+    label: "Y por cómo respondes, quizá también disfrutes...",
+    music: "🎵 Música: ",
+    movie: "🎬 Cine: ",
+    note: "(Es solo una interpretación lúdica de tus respuestas, no una verdad absoluta.)",
+    musicGenres: [
+      "Baladas y pop romántico",
+      "Lo-fi, indie y sonidos tranquilos",
+      "Pop variado y bailable",
+      "Rock y hip-hop con energía",
+      "Metal y trap intenso",
+    ],
+    movieGenres: [
+      "Romance y drama",
+      "Cine independiente y documental",
+      "Aventura y comedia",
+      "Acción y aventura intensa",
+      "Terror y suspenso",
+    ],
+  },
+  en: {
+    label: "And by how you answer, you might also enjoy...",
+    music: "🎵 Music: ",
+    movie: "🎬 Movies: ",
+    note: "(Just a playful read of your answers, not an absolute truth.)",
+    musicGenres: [
+      "Ballads and romantic pop",
+      "Lo-fi, indie and calm sounds",
+      "Upbeat, danceable pop",
+      "Energetic rock and hip-hop",
+      "Intense metal and trap",
+    ],
+    movieGenres: [
+      "Romance and drama",
+      "Indie films and documentaries",
+      "Adventure and comedy",
+      "Action and intense adventure",
+      "Horror and thriller",
+    ],
+  },
+  zh: {
+    label: "而且根据你的回答，你也许也会喜欢……",
+    music: "🎵 音乐：",
+    movie: "🎬 电影：",
+    note: "（这只是对你回答的趣味解读，并非绝对结论。）",
+    musicGenres: [
+      "抒情与浪漫流行",
+      "Lo-fi、独立与舒缓的音乐",
+      "欢快、适合跳舞的流行",
+      "充满能量的摇滚与嘻哈",
+      "激烈的金属与陷阱乐",
+    ],
+    movieGenres: [
+      "浪漫与剧情",
+      "独立电影与纪录片",
+      "冒险与喜剧",
+      "动作与激烈冒险",
+      "恐怖与悬疑",
+    ],
+  },
+};
+
+function renderTaste() {
+  if (!els.tasteBox) return;
+  const data = TASTE[LANG] || TASTE.es;
+  const idx = (lastResult.dominant != null) ? lastResult.dominant : 2;
+  els.tasteBox.innerHTML =
+    '<p class="taste-title">' + data.label + "</p>" +
+    '<p class="taste-line">' + data.music + "<strong>" + data.musicGenres[idx] + "</strong></p>" +
+    '<p class="taste-line">' + data.movie + "<strong>" + data.movieGenres[idx] + "</strong></p>" +
+    '<p class="taste-note">' + data.note + "</p>";
+  els.tasteBox.classList.remove("hidden");
 }
 function buildPrediction() {
   const who = playerName ? playerName : t("predictionYou");
