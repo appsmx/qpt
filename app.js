@@ -375,6 +375,8 @@ const els = {
   chatInput: document.getElementById("chat-input"),
   chatSend: document.getElementById("chat-send"),
   btnCloseChat: document.getElementById("btn-close-chat"),
+  fabChat: document.getElementById("fab-chat"),
+  chatModel: document.getElementById("chat-model"),
   btnShare: document.getElementById("btn-share"),
   btnStory: document.getElementById("btn-story"),
   storyHint: document.getElementById("story-hint"),
@@ -981,11 +983,16 @@ function addChatMsg(role, text) {
 function openChat() {
   if (!API_BASE) return;
   if (els.chatMessages.children.length === 0) {
-    const tmpl = playerName ? t("chatGreeting") : t("chatGreetingNoName");
-    const greet = tmpl
-      .replace("{name}", playerName)
-      .replace("{score}", lastResult.score)
-      .replace("{title}", lastResult.title);
+    let greet;
+    if (!lastResult.title) {
+      greet = t("chatGreetingGeneric");
+    } else {
+      const tmpl = playerName ? t("chatGreeting") : t("chatGreetingNoName");
+      greet = tmpl
+        .replace("{name}", playerName)
+        .replace("{score}", lastResult.score)
+        .replace("{title}", lastResult.title);
+    }
     addChatMsg("assistant", greet);
     chatHistory.push({ role: "assistant", content: greet });
   }
@@ -1012,6 +1019,7 @@ async function sendChat() {
     const reply = (data && data.reply) ? data.reply : "Lo siento, no pude responder ahora. Inténtalo de nuevo.";
     pending.textContent = reply;
     if (data && data.reply) chatHistory.push({ role: "assistant", content: reply });
+    if (data && data.model && els.chatModel) els.chatModel.textContent = t("modelLabel") + " " + data.model;
   } catch (e) {
     pending.textContent = "No hay conexión con el asistente. Revisa tu internet e inténtalo de nuevo.";
   } finally {
@@ -1027,6 +1035,7 @@ async function sendChat() {
 const LANGS = [
   { code: "es", name: "Español" },
   { code: "en", name: "English" },
+  { code: "zh", name: "中文" },
 ];
 
 // Fuentes activas del contenido (cambian según idioma)
@@ -1080,6 +1089,8 @@ const UI_ES = {
   chatPlaceholder: "Escribe tu mensaje\u2026",
   chatGreeting: "Hola, {name}. Tu resultado fue {score}/100 ({title}). ¿Quieres reflexionar sobre eso o preguntarme algo?",
   chatGreetingNoName: "¡Hola! Tu resultado fue {score}/100 ({title}). ¿Quieres reflexionar sobre eso o preguntarme algo?",
+  chatGreetingGeneric: "¡Hola! Soy tu asistente. Puedo acompañarte a reflexionar sobre cómo actúas en situaciones sociales. ¿De qué te gustaría hablar?",
+  modelLabel: "Modelo:",
   shareText: "Mi resultado en \"¿Qué personalidad tienes?\" fue {score}/100: {title}. ¿Y tú qué personalidad tienes? Descúbrelo aquí \ud83d\udc49",
   shareTextNamed: "{name} obtuvo {score}/100 en \"¿Qué personalidad tienes?\": {title}. ¿Y tú qué personalidad tienes? Descúbrelo aquí \ud83d\udc49",
   globalStatFmt: "\ud83d\udcca El {pct}% de {total} personas también obtuvo \"{title}\".",
@@ -1215,6 +1226,7 @@ if (helpBoxEl) helpBoxEl.addEventListener("toggle", () => {
 });
 
 els.btnChat.addEventListener("click", openChat);
+els.fabChat.addEventListener("click", openChat);
 els.btnCloseChat.addEventListener("click", closeChat);
 els.chatModal.addEventListener("click", (e) => {
   if (e.target === els.chatModal) closeChat();

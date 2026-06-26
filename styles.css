@@ -731,3 +731,34 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
   cursor: pointer;
 }
 .lang-select:focus { outline: none; border-color: var(--accent); }
+
+
+/* ---------- Botón flotante de chat (siempre visible) ---------- */
+.fab-chat {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 2px solid var(--ink);
+  background: #4a6f8a;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 40;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  transition: transform 0.12s ease;
+}
+.fab-chat:hover { transform: scale(1.06); }
+.fab-chat:active { transform: scale(0.94); }
+
+/* ---------- Indicador de modelo de IA ---------- */
+.chat-model {
+  font-size: 0.68rem;
+  color: var(--ink-soft);
+  text-align: center;
+  margin: 0 0 8px;
+  min-height: 0.9em;
+}
+.chat-model:empty { display: none; }

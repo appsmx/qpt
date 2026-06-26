@@ -41,6 +41,8 @@
     "chatPlaceholder": "Type your message\u2026",
     "chatGreeting": "Hi, {name}. Your result was {score}/100 ({title}). Would you like to reflect on that or ask me something?",
     "chatGreetingNoName": "Hi! Your result was {score}/100 ({title}). Would you like to reflect on that or ask me something?",
+    "chatGreetingGeneric": "Hi! I'm your assistant. I can help you reflect on how you act in social situations. What would you like to talk about?",
+    "modelLabel": "Model:",
     "shareText": "My result in \"What's your personality?\" was {score}/100: {title}. And you, what's your personality? Find out here \ud83d\udc49",
     "shareTextNamed": "{name} got {score}/100 in \"What's your personality?\": {title}. And you, what's your personality? Find out here \ud83d\udc49",
     "globalStatFmt": "\ud83d\udcca {pct}% of {total} people also got \"{title}\".",

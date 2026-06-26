@@ -1,0 +1,318 @@
+{
+  "ui": {
+    "title": "你是什么<br />性格？",
+    "subtitle": "自我反思测试",
+    "intro": "请诚实地回答几个关于你在社交情境中如何行动的问题。最后你会得到一个 <strong>1 到 100</strong> 的结果，估计你的倾向：从<em>容忍被欺负</em>到<em>欺负他人</em>。",
+    "lastResult": "你上次的结果：",
+    "nameLabel": "你的名字（可选）",
+    "namePlaceholder": "输入你的名字",
+    "start": "开始",
+    "disclaimer": "本测试仅供自我反思和娱乐，并非心理诊断。如果你或你认识的人遭受暴力或骚扰，请向专业人士或你信任的人求助。",
+    "back": "\u2190 返回",
+    "resultLabel": "你的结果",
+    "resultLabelNamed": "{name}，你的结果是",
+    "scaleLow": "被欺负",
+    "scaleMid": "平衡",
+    "scaleHigh": "欺负者",
+    "helpSummary": "需要帮助吗？支持资源",
+    "helpBody": "本测试仅供反思和娱乐，<strong>并非诊断</strong>。如果你或你认识的人经历暴力、骚扰或情绪困扰，你并不孤单，可以寻求帮助：",
+    "helpList": [
+      "\ud83d\udea8 <strong>紧急情况：</strong> 110 / 120",
+      "\ud83d\udcac <strong>心理援助热线：</strong> 010-82951332",
+      "\ud83c\udf0e 在其他国家：请查询你所在地区的支持或紧急热线。"
+    ],
+    "helpNote": "与专业人士或你信任的人交谈会有帮助。",
+    "prediction": "\ud83d\udd2e 查看我的预测",
+    "predictionNote": "（这是基于你回答的趣味解读，并非真实预测。）",
+    "predictionYou": "你",
+    "chat": "\ud83d\udcac 与助手聊天",
+    "share": "\ud83d\udce3 分享我的结果",
+    "story": "\ud83d\udcf8 以图片分享（快拍）",
+    "shareMenuTitle": "分享到：",
+    "copyLink": "\ud83d\udccb 复制链接和文字",
+    "copyOk": "已复制！现在可以粘贴到任何地方。",
+    "retry": "再试一次",
+    "home": "主页",
+    "achievements": "\ud83c\udfc6 我的成就",
+    "achModalTitle": "\ud83c\udfc6 我的成就",
+    "close": "关闭",
+    "chatTitle": "\ud83d\udcac 助手",
+    "chatDisclaimer": "我不是健康专业人士，这无法替代专业帮助。如果你正处于危机中，请拨打紧急电话或心理援助热线。",
+    "chatPlaceholder": "输入你的消息\u2026",
+    "chatGreeting": "你好，{name}。你的结果是 {score}/100（{title}）。想聊聊这个，还是问我点别的？",
+    "chatGreetingNoName": "你好！你的结果是 {score}/100（{title}）。想聊聊这个，还是问我点别的？",
+    "chatGreetingGeneric": "你好！我是你的助手。我可以陪你聊聊你在社交情境中的表现。你想聊些什么？",
+    "modelLabel": "模型：",
+    "shareText": "我在《你是什么性格？》中的结果是 {score}/100：{title}。那你呢，你是什么性格？快来测测 \ud83d\udc49",
+    "shareTextNamed": "{name} 在《你是什么性格？》中得到 {score}/100：{title}。那你呢，你是什么性格？快来测测 \ud83d\udc49",
+    "globalStatFmt": "\ud83d\udcca 在 {total} 人中，有 {pct}% 也得到了\u201c{title}\u201d。",
+    "storyHintShared": "搞定！链接已复制 \ud83d\udccb。想让别人一键进入：在你的快拍（Instagram、Facebook 或 Snapchat）里添加\u201c链接\u201d贴纸；在 X 或 WhatsApp 直接粘贴到帖子里。\ud83d\udc49 {url}",
+    "storyHintDownload": "图片已下载 \ud83d\udce5，链接已复制 \ud83d\udccb。把它上传到你的快拍，并用\u201c链接\u201d贴纸粘贴链接（Instagram、Facebook、Snapchat），或粘贴到帖子里（X、WhatsApp）：{url}"
+  },
+  "questions": [
+    { "type": "text", "q": "当有人当着别人的面批评你时……", "options": [
+      { "text": "我会沉默，觉得他们大概是对的。", "value": 0 },
+      { "text": "我会一片空白，没有反应。", "value": 1 },
+      { "text": "我会冷静地谈，去理解他们的观点。", "value": 2 },
+      { "text": "我会表明没人可以这样跟我说话。", "value": 3 },
+      { "text": "我会反击，用话让他在众人面前难堪。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当有人对你开过分的玩笑时……", "options": [
+      { "text": "即使心里难受我也笑。", "value": 0 },
+      { "text": "我假装没听见。", "value": 1 },
+      { "text": "我会明确告诉他我不喜欢。", "value": 2 },
+      { "text": "我会警告他别招惹我。", "value": 3 },
+      { "text": "我会回敬一个更羞辱人的玩笑。", "value": 4 }
+    ]},
+    { "type": "text", "q": "面对冲突时，我通常……", "options": [
+      { "text": "为了避免麻烦而让步。", "value": 0 },
+      { "text": "走开，任它自己解决。", "value": 1 },
+      { "text": "寻找对双方都公平的共识。", "value": 2 },
+      { "text": "强行贯彻我想要的。", "value": 3 },
+      { "text": "不惜一切代价也要赢。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当我在别人面前犯错时……", "options": [
+      { "text": "我感到非常羞愧并自责。", "value": 0 },
+      { "text": "我保持沉默，希望没人注意到。", "value": 1 },
+      { "text": "我会接受并努力从中学习。", "value": 2 },
+      { "text": "我淡化它，若无其事地继续。", "value": 3 },
+      { "text": "我会找别人来背锅。", "value": 4 }
+    ]},
+    { "type": "text", "q": "对别人说\u201c不\u201d……", "options": [
+      { "text": "对我很难，几乎做不到。", "value": 0 },
+      { "text": "我会回避：拖延或消失。", "value": 1 },
+      { "text": "必要时我会礼貌地说。", "value": 2 },
+      { "text": "我会说，不在乎别人怎么想。", "value": 3 },
+      { "text": "我会直接生硬地说，让他们别再纠缠。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果别人拥有你想要的东西……", "options": [
+      { "text": "我觉得我不配拥有。", "value": 0 },
+      { "text": "我会作罢，连试都不试。", "value": 1 },
+      { "text": "我会努力去争取属于自己的。", "value": 2 },
+      { "text": "我会想方设法自己得到它。", "value": 3 },
+      { "text": "我会设法把它从他那里夺走。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当身边的人难过或哭泣时……", "options": [
+      { "text": "我会和对方一样难受，甚至更甚。", "value": 0 },
+      { "text": "我不知所措，僵在那里。", "value": 1 },
+      { "text": "我会试着倾听并安慰。", "value": 2 },
+      { "text": "我会告诉他该怎么做才能走出来。", "value": 3 },
+      { "text": "我觉得那是他的软弱。", "value": 4 }
+    ]},
+    { "type": "text", "q": "在团队合作中你通常……", "options": [
+      { "text": "别人说什么我就做什么。", "value": 0 },
+      { "text": "默默无闻，贡献很少。", "value": 1 },
+      { "text": "既贡献也倾听，二者兼顾。", "value": 2 },
+      { "text": "想要指挥、支配所有人。", "value": 3 },
+      { "text": "把别人的功劳据为己有。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果有人在街上\u201c不小心\u201d撞到你……", "options": [
+      { "text": "即使不是我的错，我也会道歉。", "value": 0 },
+      { "text": "我若无其事地继续走。", "value": 1 },
+      { "text": "我会冷静地提醒他小心点。", "value": 2 },
+      { "text": "我会要求他尊重我。", "value": 3 },
+      { "text": "我会推回去或骂他。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当你接到一个你觉得不公平的命令时……", "options": [
+      { "text": "尽管心里不情愿，我还是照做。", "value": 0 },
+      { "text": "我无视它，假装没听见。", "value": 1 },
+      { "text": "我会礼貌地问为什么。", "value": 2 },
+      { "text": "我会拒绝并贯彻我的意志。", "value": 3 },
+      { "text": "我会反抗并粗鲁地抱怨。", "value": 4 }
+    ]},
+    { "type": "text", "q": "面对社交媒体上的批评……", "options": [
+      { "text": "我默默承受，它对我影响很大。", "value": 0 },
+      { "text": "我完全无视，继续往下刷。", "value": 1 },
+      { "text": "我会冷静地读，值得才回复。", "value": 2 },
+      { "text": "我会回复，表明我是对的。", "value": 3 },
+      { "text": "我会回击，攻击任何人。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当有人持有和你不同的观点时……", "options": [
+      { "text": "为了不争论我会改变自己的看法。", "value": 0 },
+      { "text": "我保持沉默并转移话题。", "value": 1 },
+      { "text": "即使不同意我也尊重它。", "value": 2 },
+      { "text": "我会坚持，直到他接受我的。", "value": 3 },
+      { "text": "我会嘲讽它，让他闭嘴。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果一群人在嘲笑某个人，你会……", "options": [
+      { "text": "保持沉默，害怕下一个就是自己。", "value": 0 },
+      { "text": "装作不知道并走开。", "value": 1 },
+      { "text": "维护那个人。", "value": 2 },
+      { "text": "借此在群体里讨好。", "value": 3 },
+      { "text": "加入嘲笑。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当你取得重要成就时……", "options": [
+      { "text": "我觉得是运气，我不配。", "value": 0 },
+      { "text": "我不会提，宁愿不引人注意。", "value": 1 },
+      { "text": "我会高兴并以健康的方式庆祝。", "value": 2 },
+      { "text": "我会确保所有人都知道是我做的。", "value": 3 },
+      { "text": "我会炫耀，好让自己高人一等。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果有人不尊重你……", "options": [
+      { "text": "为了不惹麻烦我会忍。", "value": 0 },
+      { "text": "我会走开并躲着那个人。", "value": 1 },
+      { "text": "我会坚定而冷静地设立界限。", "value": 2 },
+      { "text": "我会让他明白别跟我胡来。", "value": 3 },
+      { "text": "我会以更过分的方式回敬。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当有人没有兑现对你的承诺时……", "options": [
+      { "text": "我会为他找借口，什么都不说。", "value": 0 },
+      { "text": "我什么都不说，但慢慢疏远。", "value": 1 },
+      { "text": "我会冷静地问发生了什么。", "value": 2 },
+      { "text": "我会要求他立刻兑现。", "value": 3 },
+      { "text": "我会揭穿他，让他难堪。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果有人在你前面插队……", "options": [
+      { "text": "为了不惹麻烦我什么都不说。", "value": 0 },
+      { "text": "我心里不爽但保持沉默。", "value": 1 },
+      { "text": "我会冷静地提醒他这里在排队。", "value": 2 },
+      { "text": "我会要求他到队尾去。", "value": 3 },
+      { "text": "我会大声呵斥他。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当你在一群人中发表意见时……", "options": [
+      { "text": "我怕被评判，几乎不开口。", "value": 0 },
+      { "text": "我宁愿保持沉默，只是观察。", "value": 1 },
+      { "text": "我会自然地表达出来。", "value": 2 },
+      { "text": "即使打断别人我也要强加我的看法。", "value": 3 },
+      { "text": "我会贬低我不喜欢的意见。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果朋友请你帮一个你做不到的忙……", "options": [
+      { "text": "即使对自己不利我也会答应。", "value": 0 },
+      { "text": "我会拖延，直到他忘了这事。", "value": 1 },
+      { "text": "我会诚实地解释为什么不行。", "value": 2 },
+      { "text": "我会直接说不，没别的。", "value": 3 },
+      { "text": "我会因为他打扰我而对他态度恶劣。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当有人对你大声吼叫时……", "options": [
+      { "text": "我会僵住并最终服从。", "value": 0 },
+      { "text": "我会一片空白，不知该说什么。", "value": 1 },
+      { "text": "我会保持冷静并回应。", "value": 2 },
+      { "text": "我会比他吼得更大声。", "value": 3 },
+      { "text": "我会威胁他，让他闭嘴。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当别人身上有什么让你不舒服时……", "options": [
+      { "text": "我会憋在心里，默默忍受。", "value": 0 },
+      { "text": "我什么都不说并保持距离。", "value": 1 },
+      { "text": "我会礼貌地告诉他。", "value": 2 },
+      { "text": "我会毫不掩饰地直说。", "value": 3 },
+      { "text": "我会狠狠地当面指责他。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当你在游戏或比赛中输了……", "options": [
+      { "text": "我觉得自己不够好。", "value": 0 },
+      { "text": "我装作不在乎。", "value": 1 },
+      { "text": "我会接受并祝贺对方。", "value": 2 },
+      { "text": "我会要求再战，直到赢为止。", "value": 3 },
+      { "text": "我会生气并找人背锅。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当有人故意无视你时……", "options": [
+      { "text": "我觉得是自己做错了什么并道歉。", "value": 0 },
+      { "text": "我会作罢并默默疏远。", "value": 1 },
+      { "text": "我会直接问是不是出了什么事。", "value": 2 },
+      { "text": "我会让他知道没人能无视我。", "value": 3 },
+      { "text": "我会加倍无视他，让他难受。", "value": 4 }
+    ]},
+    { "type": "text", "q": "如果你必须求助……", "options": [
+      { "text": "我会觉得难为情，宁愿独自硬扛。", "value": 0 },
+      { "text": "我会回避，想办法自己撑过去。", "value": 1 },
+      { "text": "需要时我会自然地开口求助。", "value": 2 },
+      { "text": "我期待别人主动帮我，不用我开口。", "value": 3 },
+      { "text": "我会理所当然地要求别人帮我。", "value": 4 }
+    ]},
+    { "type": "text", "q": "当别人的错误影响到你时……", "options": [
+      { "text": "为了不尴尬我会自己揽过。", "value": 0 },
+      { "text": "尽管影响到我，我也什么都不说。", "value": 1 },
+      { "text": "我会解决它并冷静地谈。", "value": 2 },
+      { "text": "我会要求他立刻改正。", "value": 3 },
+      { "text": "我会当着众人的面训斥他。", "value": 4 }
+    ]},
+    { "type": "image", "q": "加入一个新群体时，你认同哪张脸？", "options": [
+      { "img": "\ud83d\ude1f", "label": "不安", "value": 0 },
+      { "img": "\ud83d\ude36", "label": "一片空白", "value": 1 },
+      { "img": "\ud83d\ude42", "label": "平静", "value": 2 },
+      { "img": "\ud83d\ude0e", "label": "强势", "value": 3 },
+      { "img": "\ud83d\ude08", "label": "挑衅", "value": 4 }
+    ]},
+    { "type": "image", "q": "选择你最认同的动物：", "options": [
+      { "img": "\ud83d\udc11", "label": "绵羊", "value": 0 },
+      { "img": "\ud83d\udc22", "label": "乌龟", "value": 1 },
+      { "img": "\ud83d\udc2c", "label": "海豚", "value": 2 },
+      { "img": "\ud83e\udd81", "label": "狮子", "value": 3 },
+      { "img": "\ud83e\udd82", "label": "蝎子", "value": 4 }
+    ]},
+    { "type": "image", "q": "哪种姿态最能描述你平时的肢体语言？", "options": [
+      { "img": "\ud83d\ude47", "label": "蜷缩", "value": 0 },
+      { "img": "\ud83d\udeb6", "label": "走开", "value": 1 },
+      { "img": "\ud83e\uddcd", "label": "坚定从容", "value": 2 },
+      { "img": "\ud83d\udcaa", "label": "强势", "value": 3 },
+      { "img": "\ud83e\udd3a", "label": "进攻", "value": 4 }
+    ]},
+    { "type": "image", "q": "争论时你最常用哪个表情？", "options": [
+      { "img": "\ud83d\ude22", "label": "悲伤", "value": 0 },
+      { "img": "\ud83d\ude36", "label": "无言", "value": 1 },
+      { "img": "\ud83d\ude10", "label": "平静", "value": 2 },
+      { "img": "\ud83d\ude24", "label": "坚定", "value": 3 },
+      { "img": "\ud83d\ude20", "label": "愤怒", "value": 4 }
+    ]},
+    { "type": "image", "q": "选择反映你性格的天气：", "options": [
+      { "img": "\ud83c\udf27\ufe0f", "label": "雨", "value": 0 },
+      { "img": "\ud83c\udf2b\ufe0f", "label": "雾", "value": 1 },
+      { "img": "\u26c5", "label": "温和", "value": 2 },
+      { "img": "\ud83d\udca8", "label": "强风", "value": 3 },
+      { "img": "\u26c8\ufe0f", "label": "暴风雨", "value": 4 }
+    ]},
+    { "type": "image", "q": "选择今天最能代表你的颜色：", "options": [
+      { "img": "\ud83d\udd35", "label": "蓝 / 内敛", "value": 0 },
+      { "img": "\u26aa", "label": "白 / 中性", "value": 1 },
+      { "img": "\ud83d\udfe2", "label": "绿 / 平衡", "value": 2 },
+      { "img": "\ud83d\udfe0", "label": "橙 / 冲劲", "value": 3 },
+      { "img": "\ud83d\udd34", "label": "红 / 强烈", "value": 4 }
+    ]},
+    { "type": "image", "q": "选择你感觉最自在的场景：", "options": [
+      { "img": "\ud83e\udee5", "label": "不被注意", "value": 0 },
+      { "img": "\ud83d\udeaa", "label": "能随时离开", "value": 1 },
+      { "img": "\ud83d\udc65", "label": "和大家平等相处", "value": 2 },
+      { "img": "\ud83d\udc51", "label": "掌控全场", "value": 3 },
+      { "img": "\ud83d\udce2", "label": "成为焦点", "value": 4 }
+    ]},
+    { "type": "image", "q": "当出现紧张气氛时，你的反应是……", "options": [
+      { "img": "\ud83d\ude30", "label": "我会焦虑", "value": 0 },
+      { "img": "\ud83e\uddca", "label": "我会僵住", "value": 1 },
+      { "img": "\ud83e\uddd8", "label": "我深呼吸冷静下来", "value": 2 },
+      { "img": "\ud83d\udde3\ufe0f", "label": "我掌控局面", "value": 3 },
+      { "img": "\ud83d\udd25", "label": "我会爆发", "value": 4 }
+    ]}
+  ],
+  "results": [
+    { "min": 1, "max": 20, "title": "非常迁就",
+      "desc": "你总是把自己放在最后：即使不是你的错也会道歉，几乎总是让步，很难捍卫自己的感受。这可能让你容易被人利用。",
+      "advice": "建议：从设立小小的界限开始。你的意见和需求同样重要；说\u201c不\u201d并不代表你是坏人。" },
+    { "min": 21, "max": 40, "title": "回避 / 被动",
+      "desc": "你保护自己的方式是回避：当有事让你不舒服时，你会一片空白、无视它或走开。你无意伤害任何人，但因为不表达感受，问题往往得不到解决。",
+      "advice": "建议：练习当下就说出你的想法，哪怕只是一句简短而平静的话。回避冲突不等于解决冲突。" },
+    { "min": 41, "max": 60, "title": "平衡而自信",
+      "desc": "你既懂得倾听也懂得维护自己。你冷静地表达，带着尊重设立界限，并寻求公平的共识。这是整个谱系中最健康的点：既不被人践踏，也不践踏他人。",
+      "advice": "建议：保持这份平衡。继续既照顾自己的界限，也照顾对他人的同理心。" },
+    { "min": 61, "max": 80, "title": "倾向于支配",
+      "desc": "你喜欢掌控，有时会把自己的意志强加于人。坚定是一种美德，但要小心别越过界，变成强加。",
+      "advice": "建议：先倾听再回应。健康的领导力靠说服与共赢，而不是碾压。" },
+    { "min": 81, "max": 100, "title": "非常具有欺凌性",
+      "desc": "你倾向于强加自己、以牺牲他人为代价取胜，并轻视他们的感受。这些行为可能伤害你的人际关系和你身边的人。",
+      "advice": "建议：培养同理心能改变很多人的生活，也包括你自己。行动前，先问问对方会有什么感受。" }
+  ],
+  "predictions": [
+    "很可能你不止一次在真正想说\u201c不\u201d的时候说了\u201c好\u201d，而有人习惯了依赖你的善良。也许你为了不让别人不舒服，扛下了本不属于你的东西。今天，你可以开始设立一些小小的界限：你的内心安宁同样重要。",
+    "想必曾有那么一刻，你宁愿默默走开，也不愿面对冲突，结果一件对你重要的事就这样悬而未决。回避保护了你，但也让你一直沉默。也许是时候，平静地说出你的感受了。",
+    "很可能你曾经冷静而坚定地设立了一条界限，而那让一段关系变得更好。人们往往信任你，因为你公正。继续保持：在倾听与坚守之间的这份平衡，正是你最大的力量。",
+    "也许在某个群体里，你最终挑起了大梁，别人也跟随了你，因为你身上有领导力。但或许曾有人觉得没被听见。如果你把你的力量再加上一点倾听，你会走得更远。",
+    "也许在某个糟糕的日子里，一次激烈的反应让你失去了一段友谊或一个机会。你坚强的性格保护着你，但有时也让你孤立。带着同理心去疏导这份能量，也许会为你打开许多扇门。"
+  ],
+  "achievements": [
+    { "id": "primer_paso", "icon": "\ud83c\udf31", "title": "第一步", "desc": "你第一次完成了测试。" },
+    { "id": "autoexploracion", "icon": "\ud83d\udd01", "title": "自我探索", "desc": "你完成了 5 次测试。" },
+    { "id": "equilibrio", "icon": "\u2696\ufe0f", "title": "平衡", "desc": "你获得了平衡的结果（41-60）。" },
+    { "id": "multifacetico", "icon": "\ud83c\udfad", "title": "多面手", "desc": "你获得了 3 种不同的性格。" },
+    { "id": "difusor", "icon": "\ud83d\udce3", "title": "传播者", "desc": "你分享了你的结果。" },
+    { "id": "modo_noche", "icon": "\ud83c\udf19", "title": "夜间模式", "desc": "你开启了深色模式。" },
+    { "id": "autocuidado", "icon": "\ud83c\udd98", "title": "自我关怀", "desc": "你查看了支持资源。" }
+  ]
+}

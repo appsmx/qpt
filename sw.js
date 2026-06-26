@@ -1,6 +1,6 @@
 /* Service Worker — permite que el juego funcione sin internet (offline) */
 
-const CACHE = "qpt-cache-v11";
+const CACHE = "qpt-cache-v12";
 const ASSETS = [
   "./",
   "./index.html",
@@ -8,6 +8,7 @@ const ASSETS = [
   "./app.js",
   "./manifest.json",
   "./i18n/en.json",
+  "./i18n/zh.json",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",
