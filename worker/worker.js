@@ -123,9 +123,9 @@ export default {
         }
         if (ctx.score != null && typeof ctx.profile === "string" && ctx.profile.trim()) {
           ctxLines.push(
-            langCode === "en" ? "Their test result was " + ctx.score + "/100 (\"" + ctx.profile + "\"). Use this to personalize, but only bring it up if it helps." :
-            langCode === "zh" ? "他们的测试结果是 " + ctx.score + "/100（“" + ctx.profile + "”）。可据此个性化回答，但只在有帮助时提及。" :
-            "Su resultado del test fue " + ctx.score + "/100 (\"" + ctx.profile + "\"). Usalo para personalizar, pero mencionalo solo si ayuda.");
+            langCode === "en" ? "Their test result was " + ctx.score + "/100 (\"" + ctx.profile + "\"). On this scale 1 = tends to ALLOW abuse (very compliant/submissive), 50 = healthy balance/assertive, and 100 = tends to EXERT abuse (dominant/'bully'). Interpret the result accordingly. Use it to personalize, but only bring it up if it helps." :
+            langCode === "zh" ? "他们的测试结果是 " + ctx.score + "/100（“" + ctx.profile + "”）。在此量表中：1 = 倾向于容忍被欺负（非常顺从），50 = 健康的平衡/果断，100 = 倾向于欺压他人（支配型/“霸凌者”）。请据此正确理解结果，可用于个性化回答，但只在有帮助时提及。" :
+            "Su resultado del test fue " + ctx.score + "/100 (\"" + ctx.profile + "\"). En esta escala 1 = tiende a PERMITIR el abuso (muy complaciente/sumiso), 50 = equilibrio sano/asertivo, y 100 = tiende a EJERCER el abuso (dominante/'bully'). Interpreta el resultado conforme a eso. Usalo para personalizar, pero mencionalo solo si ayuda.");
         }
         const sysMsgs = [{ role: "system", content: sysPrompt }, { role: "system", content: langDirective }];
         if (ctxLines.length) sysMsgs.push({ role: "system", content: ctxLines.join(" ") });
