@@ -54,6 +54,181 @@
     "storyCta": "What's your personality?"
   },
   "questions": [
+    { "type": "text", "q": "When someone takes credit for your work...", "options": [
+      { "text": "I calmly clarify what I contributed.", "value": 2 },
+      { "text": "I expose them and make them look ridiculous.", "value": 4 },
+      { "text": "I say nothing; it's not worth fighting.", "value": 0 },
+      { "text": "I demand they admit it was mine.", "value": 3 },
+      { "text": "It bothers me, but I let it slide quietly.", "value": 1 }
+    ]},
+    { "type": "text", "q": "If someone goes through your private things without permission...", "options": [
+      { "text": "I allow it; I have nothing to hide.", "value": 0 },
+      { "text": "I make it very clear that's not okay.", "value": 3 },
+      { "text": "I say nothing and just hide my things better.", "value": 1 },
+      { "text": "I go through their things so they see how it feels.", "value": 4 },
+      { "text": "I ask them to respect my privacy.", "value": 2 }
+    ]},
+    { "type": "text", "q": "When you have to speak in front of a crowd...", "options": [
+      { "text": "It bothers me so much I end up in a bad mood.", "value": 4 },
+      { "text": "I find a way for someone else to speak.", "value": 1 },
+      { "text": "I prepare and do my best.", "value": 2 },
+      { "text": "I get nervous and feel I'll do badly.", "value": 0 },
+      { "text": "I take control and lead the room.", "value": 3 }
+    ]},
+    { "type": "text", "q": "If you're served rudely at a store...", "options": [
+      { "text": "I say nothing and just leave.", "value": 1 },
+      { "text": "I politely ask to be treated well.", "value": 2 },
+      { "text": "I demand to speak with the manager.", "value": 3 },
+      { "text": "I put up with it; maybe they had a bad day.", "value": 0 },
+      { "text": "I answer back just as rudely or worse.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone damages something of yours and won't admit it...", "options": [
+      { "text": "I demand they pay for or replace it.", "value": 3 },
+      { "text": "I let it go; things can be replaced.", "value": 0 },
+      { "text": "I do the same to something of theirs.", "value": 4 },
+      { "text": "I ask to talk and sort it out.", "value": 2 },
+      { "text": "I don't complain, but I distance myself.", "value": 1 }
+    ]},
+    { "type": "text", "q": "If in a meeting they always interrupt what you say...", "options": [
+      { "text": "I calmly ask to be allowed to finish.", "value": 2 },
+      { "text": "I go quiet and stop taking part.", "value": 1 },
+      { "text": "I raise my voice to silence whoever interrupts.", "value": 4 },
+      { "text": "I think what I had to say wasn't important.", "value": 0 },
+      { "text": "I impose myself and keep talking no matter what.", "value": 3 }
+    ]},
+    { "type": "text", "q": "When you find out someone lied to you...", "options": [
+      { "text": "I expose them so everyone sees who they are.", "value": 4 },
+      { "text": "I tell them how it made me feel and why.", "value": 2 },
+      { "text": "I justify it; surely they had their reasons.", "value": 0 },
+      { "text": "I demand the truth right away.", "value": 3 },
+      { "text": "I say nothing and pull away.", "value": 1 }
+    ]},
+    { "type": "text", "q": "If you're pressured to do something against your values...", "options": [
+      { "text": "I end up giving in so I don't look bad.", "value": 0 },
+      { "text": "I flatly refuse and end the topic.", "value": 3 },
+      { "text": "I firmly explain why I won't do it.", "value": 2 },
+      { "text": "I get annoyed and answer rudely.", "value": 4 },
+      { "text": "I stall until they forget about it.", "value": 1 }
+    ]},
+    { "type": "text", "q": "When your boss or teacher corrects you in front of others...", "options": [
+      { "text": "I stay quiet and don't react.", "value": 1 },
+      { "text": "I feel deeply embarrassed and apologize.", "value": 0 },
+      { "text": "I take it as learning without making a drama.", "value": 2 },
+      { "text": "I answer back, annoyed, in front of everyone.", "value": 4 },
+      { "text": "I defend my position without giving in.", "value": 3 }
+    ]},
+    { "type": "text", "q": "If they mock the way you dress or speak...", "options": [
+      { "text": "I make it clear it doesn't affect me.", "value": 3 },
+      { "text": "I calmly tell them I don't like it.", "value": 2 },
+      { "text": "I believe it and try to change to fit in.", "value": 0 },
+      { "text": "I act like I didn't hear and walk away.", "value": 1 },
+      { "text": "I mock something of theirs even worse.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When tasks must be split and no one wants the hard ones...", "options": [
+      { "text": "I force others to do them somehow.", "value": 4 },
+      { "text": "I take the hard ones to avoid arguing.", "value": 0 },
+      { "text": "I suggest splitting them fairly.", "value": 2 },
+      { "text": "I step aside and let it sort itself out.", "value": 1 },
+      { "text": "I assign who does what myself.", "value": 3 }
+    ]},
+    { "type": "text", "q": "If a person is always late to meet you...", "options": [
+      { "text": "I tell them I value my time and theirs.", "value": 2 },
+      { "text": "I say nothing, but I stop waiting for them.", "value": 1 },
+      { "text": "I give them an ultimatum.", "value": 3 },
+      { "text": "I accept it; better I show up late too.", "value": 0 },
+      { "text": "I stand them up so they learn.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When you feel you're left out of a plan on purpose...", "options": [
+      { "text": "I think I did something wrong and apologize.", "value": 0 },
+      { "text": "I directly ask what happened.", "value": 2 },
+      { "text": "I leave them out next time.", "value": 4 },
+      { "text": "I quietly pull away and don't ask.", "value": 1 },
+      { "text": "I let them know I won't be ignored.", "value": 3 }
+    ]},
+    { "type": "text", "q": "If someone uses your things without telling you...", "options": [
+      { "text": "I forbid them from touching my things again.", "value": 3 },
+      { "text": "I take theirs without asking, see if they like it.", "value": 4 },
+      { "text": "I say nothing, I just hide them better.", "value": 1 },
+      { "text": "I ask them to let me know next time.", "value": 2 },
+      { "text": "I let it go; they're just things.", "value": 0 }
+    ]},
+    { "type": "text", "q": "When you're interrupted again and again while speaking...", "options": [
+      { "text": "I give up and stop talking.", "value": 1 },
+      { "text": "I kindly ask to finish my point.", "value": 2 },
+      { "text": "I give up my turn; theirs must matter more.", "value": 0 },
+      { "text": "I raise my tone and keep going until I finish.", "value": 3 },
+      { "text": "I cut them off sharply and rudely.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If you find out people talked badly about you behind your back...", "options": [
+      { "text": "I do the same and talk worse about them.", "value": 4 },
+      { "text": "I bring it up face to face with that person.", "value": 2 },
+      { "text": "I ignore it and distance myself from that group.", "value": 1 },
+      { "text": "I think they may have a point.", "value": 0 },
+      { "text": "I confront them and demand an explanation.", "value": 3 }
+    ]},
+    { "type": "text", "q": "When someone relies on you too much and drains you...", "options": [
+      { "text": "I keep helping even though it drains me.", "value": 0 },
+      { "text": "I cut them off and let them manage alone.", "value": 3 },
+      { "text": "I explain that I need my space.", "value": 2 },
+      { "text": "I start to disappear little by little.", "value": 1 },
+      { "text": "I snap that they're a burden.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If you make a decision and everyone questions it...", "options": [
+      { "text": "I change my mind so I don't bother anyone.", "value": 0 },
+      { "text": "I stay quiet and don't defend it.", "value": 1 },
+      { "text": "I calmly explain my reasons.", "value": 2 },
+      { "text": "I get annoyed and dismiss their doubts.", "value": 4 },
+      { "text": "I keep my decision no matter what.", "value": 3 }
+    ]},
+    { "type": "text", "q": "When a friend owes you money and never mentions it...", "options": [
+      { "text": "I say nothing and write it off.", "value": 1 },
+      { "text": "I bring it up naturally.", "value": 2 },
+      { "text": "I'm too embarrassed to ask, so I let it go.", "value": 0 },
+      { "text": "I expose them in front of others.", "value": 4 },
+      { "text": "I demand they pay me now.", "value": 3 }
+    ]},
+    { "type": "text", "q": "If someone cheats to beat you...", "options": [
+      { "text": "I demand a fair rematch.", "value": 3 },
+      { "text": "I cheat even worse to win.", "value": 4 },
+      { "text": "I let them win; it's no big deal.", "value": 0 },
+      { "text": "I point out the cheating calmly.", "value": 2 },
+      { "text": "I say nothing and stop playing with them.", "value": 1 }
+    ]},
+    { "type": "text", "q": "When an important plan is ruined by someone else...", "options": [
+      { "text": "I blame them and let them know harshly.", "value": 4 },
+      { "text": "I look for a way to fix it together.", "value": 2 },
+      { "text": "I get frustrated but say nothing.", "value": 1 },
+      { "text": "I take the blame even if it's not mine.", "value": 0 },
+      { "text": "I take control and fix it my way.", "value": 3 }
+    ]},
+    { "type": "text", "q": "If they keep insisting after you said no...", "options": [
+      { "text": "I repeat my no calmly.", "value": 2 },
+      { "text": "I end up agreeing so they stop insisting.", "value": 0 },
+      { "text": "I stand firm and don't give an inch.", "value": 3 },
+      { "text": "I change the subject to escape.", "value": 1 },
+      { "text": "I answer sharply so they stop.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When you see a stranger being treated unfairly...", "options": [
+      { "text": "I'd rather not get involved and walk on.", "value": 1 },
+      { "text": "I step in calmly to help.", "value": 2 },
+      { "text": "I feel bad, but think it's not my business.", "value": 0 },
+      { "text": "I impose myself and stop the situation.", "value": 3 },
+      { "text": "I aggressively confront whoever treats them badly.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If someone belittles something important to you...", "options": [
+      { "text": "I think maybe I'm overreacting.", "value": 0 },
+      { "text": "I explain why it does matter to me.", "value": 2 },
+      { "text": "I change the subject and keep it to myself.", "value": 1 },
+      { "text": "I belittle their stuff too.", "value": 4 },
+      { "text": "I make it clear they should respect my feelings.", "value": 3 }
+    ]},
+    { "type": "text", "q": "When someone speaks to you in a domineering tone...", "options": [
+      { "text": "I answer in an even worse tone.", "value": 4 },
+      { "text": "I calmly ask them to speak nicely.", "value": 2 },
+      { "text": "I lower my head and obey.", "value": 0 },
+      { "text": "I don't respond and withdraw.", "value": 1 },
+      { "text": "I demand respect right away.", "value": 3 }
+    ]},
     { "type": "text", "q": "When someone criticizes you in front of others...", "options": [
       { "text": "I stay quiet and assume they're probably right.", "value": 0 },
       { "text": "I go blank and don't react.", "value": 1 },
