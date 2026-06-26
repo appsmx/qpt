@@ -69,14 +69,27 @@ export default {
         const recent = incoming
           .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
           .slice(-8);
-        // Forzamos el idioma de respuesta segun lo que envia el frontend (mas fiable
-        // que pedirle al modelo que "detecte" el idioma).
+        // Forzamos el idioma de respuesta. La forma mas fiable en modelos pequenos es
+        // (1) un mensaje de sistema y (2) inyectar la orden, ESCRITA EN EL IDIOMA DESTINO,
+        // al final del ultimo mensaje del usuario.
         const LANG_NAMES = { es: "espanol", en: "ingles (English)", zh: "chino (中文)" };
+        const LANG_INLINE = {
+          es: " (Responde en español.)",
+          en: " (Reply ONLY in English.)",
+          zh: " (请务必用中文回答。)",
+        };
         const langCode = typeof body.lang === "string" ? body.lang.slice(0, 5) : "es";
         const langName = LANG_NAMES[langCode] || "espanol";
         const langDirective =
           "IMPORTANTE: responde EXCLUSIVAMENTE en " + langName + ". " +
           "Toda tu respuesta debe estar en ese idioma, sin importar en que idioma este escrito el historial.";
+        // Inyecta la orden en el ultimo mensaje del usuario (lo que mejor obedecen).
+        for (let i = recent.length - 1; i >= 0; i--) {
+          if (recent[i].role === "user") {
+            recent[i] = { role: "user", content: recent[i].content + (LANG_INLINE[langCode] || LANG_INLINE.es) };
+            break;
+          }
+        }
         messages = [
           { role: "system", content: SYSTEM_PROMPT },
           { role: "system", content: langDirective },
