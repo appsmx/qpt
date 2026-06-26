@@ -41,6 +41,14 @@ const SYSTEM_PROMPT =
   "(o a emergencias de su país). Nunca des consejos peligrosos. Fomenta la asertividad " +
   "y la empatía.";
 
+// Modelos de Workers AI a intentar (en orden). Usa el primero que funcione.
+const MODELS = [
+  "@cf/meta/llama-3.1-8b-instruct",
+  "@cf/meta/llama-3-8b-instruct",
+  "@cf/meta/llama-3.2-3b-instruct",
+  "@cf/mistral/mistral-7b-instruct-v0.1",
+];
+
 export default {
   async fetch(request, env) {
     const url = new URL(request.url);
@@ -52,25 +60,31 @@ export default {
 
     // ---- Chat con IA ----
     if (url.pathname === "/api/chat" && request.method === "POST") {
+      if (!env.AI) return json({ error: "Binding AI no disponible" }, 500);
+      let messages;
       try {
         const body = await request.json();
         const incoming = Array.isArray(body.messages) ? body.messages : [];
-        // Nos quedamos con los últimos mensajes para no gastar de más
         const recent = incoming
           .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
           .slice(-8);
-
-        const messages = [{ role: "system", content: SYSTEM_PROMPT }, ...recent];
-
-        const result = await env.AI.run("@cf/meta/llama-3.1-8b-instruct", {
-          messages,
-          max_tokens: 400,
-        });
-
-        return json({ reply: (result && result.response) ? result.response : "" });
+        messages = [{ role: "system", content: SYSTEM_PROMPT }, ...recent];
       } catch (e) {
-        return json({ error: "No se pudo generar la respuesta." }, 500);
+        return json({ error: "Petición inválida" }, 400);
       }
+
+      let lastErr = "";
+      for (const model of MODELS) {
+        try {
+          const result = await env.AI.run(model, { messages, max_tokens: 400 });
+          const reply = (result && (result.response || result.text)) || "";
+          if (reply) return json({ reply: reply, model: model });
+          lastErr = "respuesta vacía de " + model;
+        } catch (e) {
+          lastErr = model + ": " + String((e && e.message) || e);
+        }
+      }
+      return json({ error: "IA no disponible", detail: lastErr }, 500);
     }
 
     // ---- Registrar un resultado (estadísticas) ----
