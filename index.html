@@ -4,21 +4,46 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
   <meta name="theme-color" content="#2e4a45" />
-  <meta name="description" content="Un cuestionario de autorreflexión que estima tu tendencia en situaciones sociales, en una escala del 1 al 100." />
-  <title>¿Qué personalidad tienes?</title>
+  <meta name="description" content="Test de personalidad gratuito y sin registro: responde unas preguntas y descubre, del 1 al 100, tu tendencia en situaciones sociales (desde permitir el abuso hasta ejercerlo). Funciona offline y en español, inglés y chino." />
+  <meta name="keywords" content="test de personalidad, quiz de personalidad, autorreflexión, asertividad, abuso, bully, psicología, test gratis, qué personalidad tienes" />
+  <meta name="author" content="appsmx" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://appsmx.github.io/qpt/" />
+  <title>¿Qué personalidad tienes? — Test de autorreflexión (1 al 100)</title>
 
   <!-- Open Graph / redes sociales (para que el enlace se vea bien al compartir) -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="¿Qué personalidad tienes?" />
   <meta property="og:title" content="¿Qué personalidad tienes? — Test de autorreflexión" />
-  <meta property="og:description" content="Descubre tu tendencia en situaciones sociales en una escala del 1 al 100. ¿Y tú qué personalidad tienes?" />
+  <meta property="og:description" content="Descubre tu tendencia en situaciones sociales en una escala del 1 al 100. ¿Y tú qué personalidad tienes? Gratis, sin registro y funciona offline." />
   <meta property="og:url" content="https://appsmx.github.io/qpt/" />
   <meta property="og:image" content="https://appsmx.github.io/qpt/icons/icon-512.png" />
+  <meta property="og:image:width" content="512" />
+  <meta property="og:image:height" content="512" />
+  <meta property="og:image:alt" content="Logo del test ¿Qué personalidad tienes?" />
   <meta property="og:locale" content="es_MX" />
+  <meta property="og:locale:alternate" content="en_US" />
+  <meta property="og:locale:alternate" content="zh_CN" />
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="¿Qué personalidad tienes?" />
-  <meta name="twitter:description" content="Descubre tu tendencia en situaciones sociales. ¿Y tú qué personalidad tienes?" />
+  <meta name="twitter:description" content="Descubre tu tendencia en situaciones sociales en una escala del 1 al 100. ¿Y tú qué personalidad tienes?" />
   <meta name="twitter:image" content="https://appsmx.github.io/qpt/icons/icon-512.png" />
+  <meta name="twitter:image:alt" content="Logo del test ¿Qué personalidad tienes?" />
+
+  <!-- Datos estructurados (SEO) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "¿Qué personalidad tienes?",
+    "url": "https://appsmx.github.io/qpt/",
+    "description": "Test de autorreflexión que estima tu tendencia en situaciones sociales en una escala del 1 al 100.",
+    "applicationCategory": "GameApplication",
+    "operatingSystem": "Any",
+    "inLanguage": ["es", "en", "zh"],
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+  }
+  </script>
 
   <link rel="manifest" href="manifest.json" />
   <link rel="icon" href="icons/icon-192.png" />
@@ -26,6 +51,9 @@
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
+  <!-- Capa de viñeta para el "Modo a fondo" (bordes en penumbra, envolvente) -->
+  <div id="vignette" class="vignette" aria-hidden="true"></div>
+
   <!-- Controles superiores: idioma, tema, sonido y volumen -->
   <div class="top-controls">
     <select id="lang-select" class="lang-select" aria-label="Idioma / Language"></select>
@@ -64,6 +92,8 @@
         </div>
 
         <button id="btn-start" class="btn btn-primary">Comenzar</button>
+        <button id="btn-start-deep" class="btn btn-deep">🕯️ Modo a fondo</button>
+        <p class="deep-hint">Una experiencia más larga, íntima y envolvente: todas las preguntas, ambiente profundo y bordes en penumbra.</p>
         <button class="btn btn-ghost js-achievements">🏆 Mis logros</button>
 
         <p class="disclaimer">
@@ -184,7 +214,6 @@
         <input id="chat-input" class="chat-input" type="text" placeholder="Escribe tu mensaje…" autocomplete="off" />
         <button id="chat-send" class="chat-send" aria-label="Enviar">➤</button>
       </div>
-      <p id="chat-model" class="chat-model"></p>
       <button id="btn-close-chat" class="btn btn-ghost">Cerrar</button>
     </div>
   </div>

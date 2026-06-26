@@ -7,6 +7,8 @@
     "nameLabel": "Your name (optional)",
     "namePlaceholder": "Enter your name",
     "start": "Start",
+    "startDeep": "🕯️ Deep mode",
+    "startDeepHint": "A longer, more intimate and immersive experience: all the questions, a deep atmosphere and dimmed edges.",
     "disclaimer": "This test is only for personal reflection and entertainment. It is not a psychological diagnosis. If you or someone you know suffers violence or harassment, seek help from a professional or someone you trust.",
     "back": "\u2190 Back",
     "resultLabel": "Your result",

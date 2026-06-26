@@ -762,3 +762,83 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
   min-height: 0.9em;
 }
 .chat-model:empty { display: none; }
+
+
+/* ===========================================================
+   MODO A FONDO (profundo, íntimo y envolvente)
+   - Paleta índigo oscura con acento cálido (luz de vela)
+   - Viñeta en los bordes (penumbra envolvente, tipo inmersión)
+   - Transición suave entre preguntas
+   =========================================================== */
+
+/* Tema profundo: se aplica encima del tema claro u oscuro */
+[data-mode="deep"] {
+  --bg: #14121c;
+  --bg-2: #1d1926;
+  --ink: #ece6dd;
+  --ink-soft: #a59bb0;
+  --accent: #b5836b;          /* cálido, tipo vela */
+  --accent-dark: #d8a981;
+  --line: #2f2a3a;
+  --card: #1b1825;
+  --shadow: rgba(0, 0, 0, 0.7);
+  --victim: #6f86c4;
+  --balance: #8a6fb0;
+  --bully: #c46f8f;
+}
+[data-mode="deep"] body {
+  background: radial-gradient(circle at 50% 28%, #211c2e, #0c0a12 80%);
+}
+[data-mode="deep"] .card {
+  box-shadow: 0 0 50px rgba(181, 131, 107, 0.10), 6px 6px 0 var(--shadow);
+}
+/* La transición de color hace que el cambio de ambiente se sienta gradual */
+.card { transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.6s ease; }
+body { transition: background-color 0.6s ease, color 0.5s ease; }
+
+/* Botón y descripción del modo a fondo */
+.btn-deep {
+  background: transparent;
+  color: var(--accent-dark);
+  border-style: solid;
+  border-color: var(--accent-dark);
+  box-shadow: 4px 4px 0 var(--shadow);
+}
+.btn-deep:active { transform: translate(2px, 2px); box-shadow: 2px 2px 0 var(--shadow); }
+.deep-hint {
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  line-height: 1.45;
+  margin: 6px 2px 0;
+}
+
+/* ---------- Viñeta envolvente (bordes en penumbra) ---------- */
+.vignette {
+  position: fixed;
+  inset: 0;
+  z-index: 35;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.2s ease;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0) 40%, rgba(0,0,0,0.58) 100%);
+}
+[data-mode="deep"] .vignette {
+  opacity: 1;
+  animation: vignettePulse 7s ease-in-out infinite;
+}
+/* Respiración lenta de la penumbra: sensación inmersiva sin marear */
+@keyframes vignettePulse {
+  0%, 100% { opacity: 0.72; }
+  50% { opacity: 1; }
+}
+
+/* ---------- Transición entre preguntas ---------- */
+@keyframes qIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.question.q-in { animation: qIn 0.34s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  [data-mode="deep"] .vignette { animation: none !important; opacity: 0.8 !important; }
+}

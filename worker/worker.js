@@ -112,11 +112,24 @@ export default {
             break;
           }
         }
-        messages = [
-          { role: "system", content: sysPrompt },
-          { role: "system", content: langDirective },
-          ...recent,
-        ];
+        // Contexto del resultado (para personalizar y que la IA sea mas util)
+        const ctx = body.context || {};
+        const ctxLines = [];
+        if (typeof ctx.name === "string" && ctx.name.trim()) {
+          ctxLines.push(
+            langCode === "en" ? "The person's name is " + ctx.name.trim() + "." :
+            langCode === "zh" ? "对方的名字是 " + ctx.name.trim() + "。" :
+            "La persona se llama " + ctx.name.trim() + ".");
+        }
+        if (ctx.score != null && typeof ctx.profile === "string" && ctx.profile.trim()) {
+          ctxLines.push(
+            langCode === "en" ? "Their test result was " + ctx.score + "/100 (\"" + ctx.profile + "\"). Use this to personalize, but only bring it up if it helps." :
+            langCode === "zh" ? "他们的测试结果是 " + ctx.score + "/100（“" + ctx.profile + "”）。可据此个性化回答，但只在有帮助时提及。" :
+            "Su resultado del test fue " + ctx.score + "/100 (\"" + ctx.profile + "\"). Usalo para personalizar, pero mencionalo solo si ayuda.");
+        }
+        const sysMsgs = [{ role: "system", content: sysPrompt }, { role: "system", content: langDirective }];
+        if (ctxLines.length) sysMsgs.push({ role: "system", content: ctxLines.join(" ") });
+        messages = [...sysMsgs, ...recent];
       } catch (e) {
         return json({ error: "Petición inválida" }, 400);
       }
@@ -124,7 +137,7 @@ export default {
       let lastErr = "";
       for (const model of MODELS) {
         try {
-          const result = await env.AI.run(model, { messages, max_tokens: 400 });
+          const result = await env.AI.run(model, { messages, max_tokens: 400, temperature: 0.7 });
           const reply = (result && (result.response || result.text)) || "";
           if (reply) return json({ reply: reply, model: model });
           lastErr = "respuesta vacía de " + model;

@@ -293,6 +293,7 @@ const SESSION_SIZE = 25;    // preguntas por partida (elegidas al azar del banco
 let questions = [];         // preguntas activas de esta partida
 let current = 0;            // índice de pregunta actual
 let answers = [];           // respuestas elegidas
+let deepMode = false;       // "Modo a fondo": más largo, íntimo y envolvente
 const STORAGE_KEY = "qpt_last_score";
 const STORAGE_NAME = "qpt_name";
 
@@ -302,6 +303,17 @@ let playerName = "";
 // URL pública del juego (se usa al compartir para promocionarlo)
 const SHARE_URL = "https://appsmx.github.io/qpt/";
 const SHARE_URL_CORTA = "appsmx.github.io/qpt";
+
+// QR del juego (imagen fija, funciona offline). Se dibuja en la imagen de Stories.
+const qrImage = new Image();
+qrImage.src = "icons/qr.png";
+function ensureQr() {
+  return new Promise((resolve) => {
+    if (qrImage.complete && qrImage.naturalWidth) return resolve(true);
+    qrImage.onload = () => resolve(true);
+    qrImage.onerror = () => resolve(false);
+  });
+}
 
 // Backend (Cloudflare Worker) para chat con IA y estadísticas globales
 const API_BASE = "https://qpt-api.appsmx.workers.dev";
@@ -322,7 +334,8 @@ function shuffle(arr) {
 
 // Construye una partida nueva: preguntas al azar y opciones barajadas
 function buildSession() {
-  const size = Math.min(SESSION_SIZE, activePool.length);
+  // En "Modo a fondo" se usan TODAS las preguntas del banco (más largo y profundo).
+  const size = deepMode ? activePool.length : Math.min(SESSION_SIZE, activePool.length);
   questions = shuffle(activePool)
     .slice(0, size)
     .map((q) => ({ type: q.type, q: q.q, options: shuffle(q.options) }));
@@ -340,6 +353,7 @@ const screens = {
 };
 const els = {
   btnStart: document.getElementById("btn-start"),
+  btnStartDeep: document.getElementById("btn-start-deep"),
   btnBack: document.getElementById("btn-back"),
   btnRetry: document.getElementById("btn-retry"),
   btnHome: document.getElementById("btn-home"),
@@ -376,7 +390,6 @@ const els = {
   chatSend: document.getElementById("chat-send"),
   btnCloseChat: document.getElementById("btn-close-chat"),
   fabChat: document.getElementById("fab-chat"),
-  chatModel: document.getElementById("chat-model"),
   btnShare: document.getElementById("btn-share"),
   btnStory: document.getElementById("btn-story"),
   storyHint: document.getElementById("story-hint"),
@@ -405,6 +418,11 @@ function renderQuestion() {
   const item = questions[current];
   els.questionText.textContent = item.q;
   els.answers.innerHTML = "";
+
+  // Re-dispara la animación de entrada de la pregunta (transición suave)
+  els.questionText.classList.remove("q-in");
+  void els.questionText.offsetWidth;
+  els.questionText.classList.add("q-in");
 
   item.options.forEach((opt, i) => {
     const btn = document.createElement("button");
@@ -575,7 +593,7 @@ async function copyShareText() {
    historia y sus amigos puedan entrar con un toque.
 ----------------------------------------------------------- */
 function makeStoryBlob() {
-  return new Promise((resolve) => {
+  return ensureQr().then((qrReady) => new Promise((resolve) => {
     const W = 1080, H = 1920;
     const canvas = document.createElement("canvas");
     canvas.width = W; canvas.height = H;
@@ -662,15 +680,39 @@ function makeStoryBlob() {
     x.textAlign = "center";
     x.fillStyle = "#2e4a45";
     x.font = "bold 46px 'Courier New', monospace";
-    x.fillText("¿Y tú qué personalidad tienes?", W / 2, 1640);
+    x.fillText("¿Y tú qué personalidad tienes?", W / 2, 1600);
 
-    // Enlace
-    x.fillStyle = "#4a6f8a";
-    x.font = "bold 40px 'Courier New', monospace";
-    x.fillText("👉 " + SHARE_URL_CORTA, W / 2, 1730);
+    // Código QR (escanear para entrar directo al juego)
+    if (qrReady) {
+      const qs = 200, qx = 175, qy = 1645;
+      // Marco blanco para asegurar contraste al escanear
+      x.fillStyle = "#ffffff";
+      x.fillRect(qx - 14, qy - 14, qs + 28, qs + 28);
+      x.strokeStyle = "#2e3a36";
+      x.lineWidth = 4;
+      x.strokeRect(qx - 14, qy - 14, qs + 28, qs + 28);
+      x.drawImage(qrImage, qx, qy, qs, qs);
+
+      // Texto a la derecha del QR
+      x.textAlign = "left";
+      x.fillStyle = "#2e4a45";
+      x.font = "bold 42px 'Courier New', monospace";
+      x.fillText("Escanea para jugar", qx + qs + 50, qy + 78);
+      x.fillStyle = "#5c6b64";
+      x.font = "32px 'Courier New', monospace";
+      x.fillText("o entra en:", qx + qs + 50, qy + 130);
+      x.fillStyle = "#4a6f8a";
+      x.font = "bold 34px 'Courier New', monospace";
+      x.fillText(SHARE_URL_CORTA, qx + qs + 50, qy + 176);
+    } else {
+      // Sin QR disponible: solo el enlace centrado
+      x.fillStyle = "#4a6f8a";
+      x.font = "bold 40px 'Courier New', monospace";
+      x.fillText("👉 " + SHARE_URL_CORTA, W / 2, 1730);
+    }
 
     canvas.toBlob((b) => resolve(b), "image/png");
-  });
+  }));
 }
 
 async function shareStory() {
@@ -738,6 +780,8 @@ let masterGain = null;
 let ambientStarted = false;
 let soundOn = true;
 let volume = 0.6;           // 0.0 a 1.0 (control de volumen)
+let ambientNodes = null;    // referencias para modular el ambiente (modo a fondo)
+let heartbeatTimer = null;  // latido suave del modo a fondo
 
 function initAudio() {
   if (audioCtx) return;
@@ -763,13 +807,16 @@ function startAmbient() {
   filter.connect(masterGain);
 
   // Acorde suave (notas graves)
-  [110, 164.81, 220].forEach((freq, idx) => {
+  const baseFreqs = [110, 164.81, 220];
+  const oscs = [];
+  baseFreqs.forEach((freq, idx) => {
     const osc = audioCtx.createOscillator();
     osc.type = "sine";
     osc.frequency.value = freq;
     osc.detune.value = idx * 4;
     osc.connect(padGain);
     osc.start();
+    oscs.push(osc);
   });
 
   // LFO que hace "respirar" el volumen
@@ -780,6 +827,72 @@ function startAmbient() {
   lfo.connect(lfoGain);
   lfoGain.connect(padGain.gain);
   lfo.start();
+
+  ambientNodes = { padGain, filter, oscs, lfo, baseFreqs };
+  applyAmbientMood(deepMode);
+}
+
+// Cambia el "ánimo" del ambiente. En modo a fondo todo se vuelve más grave,
+// más amortiguado (como aturdido/inmersivo) e íntimo.
+function applyAmbientMood(deep) {
+  if (!audioCtx || !ambientNodes) return;
+  const t = audioCtx.currentTime;
+  const factor = deep ? 0.5 : 1; // una octava más grave en modo a fondo
+  ambientNodes.oscs.forEach((osc, i) => {
+    osc.frequency.cancelScheduledValues(t);
+    osc.frequency.setValueAtTime(osc.frequency.value, t);
+    osc.frequency.linearRampToValueAtTime(ambientNodes.baseFreqs[i] * factor, t + 1.4);
+  });
+  // Filtro más cerrado = sonido amortiguado, "como cuando estás aturdido"
+  ambientNodes.filter.frequency.cancelScheduledValues(t);
+  ambientNodes.filter.frequency.setValueAtTime(ambientNodes.filter.frequency.value, t);
+  ambientNodes.filter.frequency.linearRampToValueAtTime(deep ? 280 : 700, t + 1.4);
+  ambientNodes.lfo.frequency.linearRampToValueAtTime(deep ? 0.05 : 0.08, t + 1.4);
+
+  if (deep) startHeartbeat();
+  else stopHeartbeat();
+}
+
+// Latido grave y lento (refuerza la inmersión del modo a fondo)
+function playHeartbeat() {
+  if (!audioCtx || !soundOn || !deepMode) return;
+  const t = audioCtx.currentTime;
+  const thump = (delay, freq) => {
+    const osc = audioCtx.createOscillator();
+    const g = audioCtx.createGain();
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(freq, t + delay);
+    g.gain.setValueAtTime(0.0001, t + delay);
+    g.gain.exponentialRampToValueAtTime(0.12, t + delay + 0.04);
+    g.gain.exponentialRampToValueAtTime(0.0001, t + delay + 0.32);
+    osc.connect(g);
+    g.connect(masterGain);
+    osc.start(t + delay);
+    osc.stop(t + delay + 0.4);
+  };
+  thump(0, 55);       // lub
+  thump(0.26, 48);    // dub
+}
+function startHeartbeat() {
+  if (heartbeatTimer) return;
+  playHeartbeat();
+  heartbeatTimer = setInterval(playHeartbeat, 2600);
+}
+function stopHeartbeat() {
+  if (heartbeatTimer) { clearInterval(heartbeatTimer); heartbeatTimer = null; }
+}
+
+// Activa o desactiva el "Modo a fondo": ambiente, sonido y bordes en penumbra
+function setDeepMode(on) {
+  deepMode = on;
+  if (on) document.documentElement.setAttribute("data-mode", "deep");
+  else document.documentElement.removeAttribute("data-mode");
+  const tc = document.querySelector('meta[name="theme-color"]');
+  if (tc) {
+    const isDark = document.documentElement.getAttribute("data-theme") === "dark";
+    tc.setAttribute("content", on ? "#0c0a12" : (isDark ? "#1b231f" : "#2e4a45"));
+  }
+  applyAmbientMood(on);
 }
 
 // Tono suave al elegir una respuesta
@@ -789,21 +902,24 @@ function playSelect() {
   const osc = audioCtx.createOscillator();
   const g = audioCtx.createGain();
   osc.type = "sine";
-  osc.frequency.setValueAtTime(523.25, t); // Do agudo
+  // Más grave e íntimo en modo a fondo
+  osc.frequency.setValueAtTime(deepMode ? 261.63 : 523.25, t);
   g.gain.setValueAtTime(0.0001, t);
-  g.gain.exponentialRampToValueAtTime(0.18, t + 0.03);
-  g.gain.exponentialRampToValueAtTime(0.0001, t + 0.6);
+  g.gain.exponentialRampToValueAtTime(deepMode ? 0.14 : 0.18, t + 0.03);
+  g.gain.exponentialRampToValueAtTime(0.0001, t + (deepMode ? 0.9 : 0.6));
   osc.connect(g);
   g.connect(masterGain);
   osc.start(t);
-  osc.stop(t + 0.65);
+  osc.stop(t + (deepMode ? 0.95 : 0.65));
 }
 
 // Pequeño acorde sereno al ver el resultado
 function playResult() {
   if (!audioCtx || !soundOn) return;
   const base = audioCtx.currentTime;
-  [392.0, 523.25, 659.25].forEach((freq, i) => {
+  // En modo a fondo el acorde baja una octava (más solemne)
+  const chord = deepMode ? [196.0, 261.63, 329.63] : [392.0, 523.25, 659.25];
+  chord.forEach((freq, i) => {
     const t = base + i * 0.12;
     const osc = audioCtx.createOscillator();
     const g = audioCtx.createGain();
@@ -1013,13 +1129,20 @@ async function sendChat() {
     const res = await fetch(API_BASE + "/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: chatHistory, lang: (typeof LANG !== "undefined" ? LANG : "es") }),
+      body: JSON.stringify({
+        messages: chatHistory,
+        lang: (typeof LANG !== "undefined" ? LANG : "es"),
+        context: {
+          name: playerName || "",
+          score: lastResult.title ? lastResult.score : null,
+          profile: lastResult.title || "",
+        },
+      }),
     });
     const data = await res.json();
     const reply = (data && data.reply) ? data.reply : "Lo siento, no pude responder ahora. Inténtalo de nuevo.";
     pending.textContent = reply;
     if (data && data.reply) chatHistory.push({ role: "assistant", content: reply });
-    if (data && data.model && els.chatModel) els.chatModel.textContent = t("modelLabel") + " " + data.model;
   } catch (e) {
     pending.textContent = "No hay conexión con el asistente. Revisa tu internet e inténtalo de nuevo.";
   } finally {
@@ -1054,6 +1177,8 @@ const UI_ES = {
   nameLabel: "Tu nombre (opcional)",
   namePlaceholder: "Escribe tu nombre",
   start: "Comenzar",
+  startDeep: "🕯️ Modo a fondo",
+  startDeepHint: "Una experiencia más larga, íntima y envolvente: todas las preguntas, ambiente profundo y bordes en penumbra.",
   disclaimer: "Este test es solo para reflexión personal y entretenimiento. No es un diagnóstico psicológico. Si tú o alguien que conoces sufre violencia o acoso, busca ayuda de un profesional o de una persona de confianza.",
   back: "\u2190 Atrás",
   resultLabel: "Tu resultado",
@@ -1123,6 +1248,8 @@ function applyUiText() {
   const cm = document.querySelector("#chat-modal .modal-title"); if (cm) cm.textContent = t("chatTitle");
   setHTML(".chat-disclaimer", "chatDisclaimer");
   setId("btn-start", "start"); setId("btn-back", "back"); setId("btn-retry", "retry"); setId("btn-home", "home");
+  setId("btn-start-deep", "startDeep");
+  const dh = document.querySelector(".deep-hint"); if (dh) dh.textContent = t("startDeepHint");
   setId("btn-prediction", "prediction"); setId("btn-chat", "chat"); setId("btn-share", "share"); setId("btn-story", "story");
   setId("btn-copy", "copyLink"); setId("copy-ok", "copyOk"); setId("btn-close-ach", "close"); setId("btn-close-chat", "close");
   document.querySelectorAll(".js-achievements").forEach((b) => (b.textContent = t("achievements")));
@@ -1158,15 +1285,25 @@ async function applyLanguage(lang) {
 /* -----------------------------------------------------------
    10) EVENTOS
 ----------------------------------------------------------- */
-els.btnStart.addEventListener("click", () => {
+function beginQuiz() {
   initAudio();
   if (audioCtx && audioCtx.state === "suspended") audioCtx.resume();
-  startAmbient();
+  if (!ambientStarted) startAmbient(); else applyAmbientMood(deepMode);
   playerName = (els.playerName.value || "").trim();
   try { localStorage.setItem(STORAGE_NAME, playerName); } catch (e) {}
   buildSession();
   renderQuestion();
   showScreen("quiz");
+}
+
+els.btnStart.addEventListener("click", () => {
+  setDeepMode(false);
+  beginQuiz();
+});
+
+els.btnStartDeep.addEventListener("click", () => {
+  setDeepMode(true);
+  beginQuiz();
 });
 
 els.btnBack.addEventListener("click", () => {
@@ -1174,12 +1311,14 @@ els.btnBack.addEventListener("click", () => {
 });
 
 els.btnRetry.addEventListener("click", () => {
+  // Conserva el modo (normal o a fondo) de la partida actual
   buildSession();
   renderQuestion();
   showScreen("quiz");
 });
 
 els.btnHome.addEventListener("click", () => {
+  setDeepMode(false);
   loadBestScore();
   showScreen("start");
 });

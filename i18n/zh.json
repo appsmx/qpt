@@ -7,6 +7,8 @@
     "nameLabel": "你的名字（可选）",
     "namePlaceholder": "输入你的名字",
     "start": "开始",
+    "startDeep": "🕯️ 深度模式",
+    "startDeepHint": "更长、更亲密、更沉浸的体验：全部题目、深邃的氛围与昏暗的边缘。",
     "disclaimer": "本测试仅供自我反思和娱乐，并非心理诊断。如果你或你认识的人遭受暴力或骚扰，请向专业人士或你信任的人求助。",
     "back": "\u2190 返回",
     "resultLabel": "你的结果",
