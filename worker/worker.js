@@ -69,7 +69,19 @@ export default {
         const recent = incoming
           .filter((m) => m && (m.role === "user" || m.role === "assistant") && typeof m.content === "string")
           .slice(-8);
-        messages = [{ role: "system", content: SYSTEM_PROMPT }, ...recent];
+        // Forzamos el idioma de respuesta segun lo que envia el frontend (mas fiable
+        // que pedirle al modelo que "detecte" el idioma).
+        const LANG_NAMES = { es: "espanol", en: "ingles (English)", zh: "chino (中文)" };
+        const langCode = typeof body.lang === "string" ? body.lang.slice(0, 5) : "es";
+        const langName = LANG_NAMES[langCode] || "espanol";
+        const langDirective =
+          "IMPORTANTE: responde EXCLUSIVAMENTE en " + langName + ". " +
+          "Toda tu respuesta debe estar en ese idioma, sin importar en que idioma este escrito el historial.";
+        messages = [
+          { role: "system", content: SYSTEM_PROMPT },
+          { role: "system", content: langDirective },
+          ...recent,
+        ];
       } catch (e) {
         return json({ error: "Petición inválida" }, 400);
       }

@@ -1013,7 +1013,7 @@ async function sendChat() {
     const res = await fetch(API_BASE + "/api/chat", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ messages: chatHistory }),
+      body: JSON.stringify({ messages: chatHistory, lang: (typeof LANG !== "undefined" ? LANG : "es") }),
     });
     const data = await res.json();
     const reply = (data && data.reply) ? data.reply : "Lo siento, no pude responder ahora. Inténtalo de nuevo.";
