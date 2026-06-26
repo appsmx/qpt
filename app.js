@@ -322,8 +322,8 @@ function shuffle(arr) {
 
 // Construye una partida nueva: preguntas al azar y opciones barajadas
 function buildSession() {
-  const size = Math.min(SESSION_SIZE, QUESTION_POOL.length);
-  questions = shuffle(QUESTION_POOL)
+  const size = Math.min(SESSION_SIZE, activePool.length);
+  questions = shuffle(activePool)
     .slice(0, size)
     .map((q) => ({ type: q.type, q: q.q, options: shuffle(q.options) }));
   answers = new Array(questions.length).fill(null);
@@ -361,6 +361,7 @@ const els = {
   themeToggle: document.getElementById("theme-toggle"),
   themeIcon: document.getElementById("theme-icon"),
   volumeSlider: document.getElementById("volume-slider"),
+  langSelect: document.getElementById("lang-select"),
   btnPrediction: document.getElementById("btn-prediction"),
   predictionBox: document.getElementById("prediction-box"),
   achievementsModal: document.getElementById("achievements-modal"),
@@ -467,15 +468,15 @@ function finishQuiz() {
 
 function showResult(score) {
   els.resultScore.textContent = score;
-  const tier = RESULTS.find((r) => score >= r.min && score <= r.max) || RESULTS[2];
+  const tier = activeResults.find((r) => score >= r.min && score <= r.max) || activeResults[2];
   els.resultTitle.textContent = tier.title;
   els.resultDesc.textContent = tier.desc;
   els.resultAdvice.textContent = tier.advice;
 
   // Encabezado personalizado con el nombre, si lo hay
   els.resultLabel.textContent = playerName
-    ? playerName + ", tu resultado es"
-    : "Tu resultado";
+    ? t("resultLabelNamed").replace("{name}", playerName)
+    : t("resultLabel");
 
   // Guardamos el resultado para compartir y preparamos los enlaces
   lastResult = { score: score, title: tier.title, dominant: dominantStyle() };
@@ -506,18 +507,11 @@ function showResult(score) {
    7b) COMPARTIR RESULTADO (promociona el juego)
 ----------------------------------------------------------- */
 function buildShareText() {
-  if (playerName) {
-    return (
-      playerName + " obtuvo " + lastResult.score + "/100 en " +
-      "\"¿Qué personalidad tienes?\": " + lastResult.title + ". " +
-      "¿Y tú qué personalidad tienes? Descúbrelo aquí 👉"
-    );
-  }
-  return (
-    "Mi resultado en \"¿Qué personalidad tienes?\" fue " +
-    lastResult.score + "/100: " + lastResult.title + ". " +
-    "¿Y tú qué personalidad tienes? Descúbrelo aquí 👉"
-  );
+  const tmpl = playerName ? t("shareTextNamed") : t("shareText");
+  return tmpl
+    .replace("{name}", playerName)
+    .replace("{score}", lastResult.score)
+    .replace("{title}", lastResult.title);
 }
 
 async function shareResult() {
@@ -694,11 +688,7 @@ async function shareStory() {
         title: "¿Qué personalidad tienes?",
         text: buildShareText() + " " + SHARE_URL,
       });
-      els.storyHint.innerHTML =
-        '¡Listo! El enlace ya está copiado 📋. Para que entren con un toque: en ' +
-        'historias de <strong>Instagram, Facebook o Snapchat</strong> agrégalo con el ' +
-        'sticker <strong>"Enlace"</strong>; en <strong>X o WhatsApp</strong> pégalo en ' +
-        'tu publicación. 👉 ' + SHARE_URL_CORTA;
+      els.storyHint.innerHTML = t("storyHintShared").replace("{url}", SHARE_URL_CORTA);
       els.storyHint.classList.remove("hidden");
       return;
     } catch (e) {
@@ -715,10 +705,7 @@ async function shareStory() {
   a.click();
   document.body.removeChild(a);
   URL.revokeObjectURL(url);
-  els.storyHint.innerHTML =
-    'Imagen descargada 📥 y enlace copiado 📋. Súbela a tu historia y pega el enlace ' +
-    'con el sticker <strong>"Enlace"</strong> (Instagram, Facebook, Snapchat) o pégalo ' +
-    'en tu publicación (X, WhatsApp): ' + SHARE_URL_CORTA;
+  els.storyHint.innerHTML = t("storyHintDownload").replace("{url}", SHARE_URL_CORTA);
   els.storyHint.classList.remove("hidden");
 }
 
@@ -885,8 +872,8 @@ function unlock(id) {
   if (u[id]) return;
   u[id] = true;
   try { localStorage.setItem("qpt_ach", JSON.stringify(u)); } catch (e) {}
-  const a = ACHIEVEMENTS.find((x) => x.id === id);
-  if (a) showToast("🏆 Logro: " + a.title);
+  const a = activeAchievements.find((x) => x.id === id);
+  if (a) showToast("\ud83c\udfc6 " + a.title);
 }
 function showToast(text) {
   if (!els.toast) return;
@@ -902,7 +889,7 @@ function showToast(text) {
 function renderAchievements() {
   const u = getUnlocked();
   els.achievementsList.innerHTML = "";
-  ACHIEVEMENTS.forEach((a) => {
+  activeAchievements.forEach((a) => {
     const got = !!u[a.id];
     const div = document.createElement("div");
     div.className = "ach-item" + (got ? " unlocked" : "");
@@ -950,10 +937,9 @@ function dominantStyle() {
   return best;
 }
 function buildPrediction() {
-  const who = playerName ? playerName : "Tú";
+  const who = playerName ? playerName : t("predictionYou");
   const idx = (lastResult.dominant != null) ? lastResult.dominant : 2;
-  return "🔮 " + who + ", " + PREDICTIONS[idx] +
-    "\n\n(Es una interpretación lúdica basada en tus respuestas, no una predicción real.)";
+  return "\ud83d\udd2e " + who + ", " + activePredictions[idx] + "\n\n" + t("predictionNote");
 }
 
 /* -----------------------------------------------------------
@@ -977,8 +963,8 @@ function loadGlobalStats() {
       if (total < 1) { els.globalStats.textContent = ""; return; }
       const count = (data.perfiles && data.perfiles[lastResult.title]) || 0;
       const pct = Math.round((count / total) * 100);
-      els.globalStats.textContent =
-        "📊 El " + pct + "% de " + total + " personas también obtuvo \"" + lastResult.title + "\".";
+      els.globalStats.textContent = t("globalStatFmt")
+        .replace("{pct}", pct).replace("{total}", total).replace("{title}", lastResult.title);
     })
     .catch(() => { els.globalStats.textContent = ""; });
 }
@@ -995,9 +981,11 @@ function addChatMsg(role, text) {
 function openChat() {
   if (!API_BASE) return;
   if (els.chatMessages.children.length === 0) {
-    const greet = (playerName ? "Hola, " + playerName + ". " : "¡Hola! ") +
-      "Tu resultado fue " + lastResult.score + "/100 (" + lastResult.title +
-      "). ¿Quieres reflexionar sobre eso o preguntarme algo?";
+    const tmpl = playerName ? t("chatGreeting") : t("chatGreetingNoName");
+    const greet = tmpl
+      .replace("{name}", playerName)
+      .replace("{score}", lastResult.score)
+      .replace("{title}", lastResult.title);
     addChatMsg("assistant", greet);
     chatHistory.push({ role: "assistant", content: greet });
   }
@@ -1030,6 +1018,130 @@ async function sendChat() {
     els.chatSend.disabled = false;
     els.chatMessages.scrollTop = els.chatMessages.scrollHeight;
   }
+}
+
+/* -----------------------------------------------------------
+   9d) IDIOMAS (i18n)
+   El español es la base (inline). Otros idiomas se cargan desde i18n/<código>.json
+----------------------------------------------------------- */
+const LANGS = [
+  { code: "es", name: "Español" },
+  { code: "en", name: "English" },
+];
+
+// Fuentes activas del contenido (cambian según idioma)
+let activePool = QUESTION_POOL;
+let activeResults = RESULTS;
+let activePredictions = PREDICTIONS;
+let activeAchievements = ACHIEVEMENTS;
+let langPack = null;
+let LANG = "es";
+
+// Textos de interfaz en español (base / respaldo)
+const UI_ES = {
+  title: "¿Qué personalidad<br />tienes?",
+  subtitle: "Test de autorreflexión",
+  intro: "Responde con sinceridad unas preguntas sobre cómo actúas en situaciones sociales. Al final obtendrás un resultado del <strong>1 al 100</strong> que estima tu tendencia: desde <em>permitir el abuso</em> hasta <em>ejercer el abuso</em>.",
+  nameLabel: "Tu nombre (opcional)",
+  namePlaceholder: "Escribe tu nombre",
+  start: "Comenzar",
+  disclaimer: "Este test es solo para reflexión personal y entretenimiento. No es un diagnóstico psicológico. Si tú o alguien que conoces sufre violencia o acoso, busca ayuda de un profesional o de una persona de confianza.",
+  back: "\u2190 Atrás",
+  resultLabel: "Tu resultado",
+  resultLabelNamed: "{name}, tu resultado es",
+  scaleLow: "Abusado",
+  scaleMid: "Equilibrio",
+  scaleHigh: "Abusador",
+  helpSummary: "¿Necesitas ayuda? Recursos de apoyo",
+  helpBody: "Este test es solo para reflexión y entretenimiento; <strong>no es un diagnóstico</strong>. Si tú o alguien que conoces vive violencia, acoso o malestar emocional, no estás solo y puedes pedir ayuda:",
+  helpList: [
+    "\ud83d\udea8 <strong>Emergencias (México):</strong> 911",
+    "\ud83d\udcac <strong>Línea de la Vida:</strong> 800 911 2000 (24 h, gratuita)",
+    "\ud83e\udde0 <strong>SAPTEL (apoyo psicológico):</strong> 55 5259 8121",
+    "\ud83c\udf0e Fuera de México: busca la línea de apoyo o emergencias de tu país."
+  ],
+  helpNote: "Hablar con un profesional o una persona de confianza ayuda.",
+  prediction: "\ud83d\udd2e Ver mi predicción",
+  predictionNote: "(Es una interpretación lúdica basada en tus respuestas, no una predicción real.)",
+  predictionYou: "Tú",
+  chat: "\ud83d\udcac Hablar con un asistente",
+  share: "\ud83d\udce3 Compartir mi resultado",
+  story: "\ud83d\udcf8 Compartir como imagen (Stories)",
+  shareMenuTitle: "Compartir en:",
+  copyLink: "\ud83d\udccb Copiar enlace y texto",
+  copyOk: "¡Copiado! Ya puedes pegarlo donde quieras.",
+  retry: "Volver a intentar",
+  home: "Inicio",
+  achievements: "\ud83c\udfc6 Mis logros",
+  achModalTitle: "\ud83c\udfc6 Mis logros",
+  close: "Cerrar",
+  chatTitle: "\ud83d\udcac Asistente",
+  chatDisclaimer: "No soy un profesional de salud y esto no sustituye ayuda profesional. Si estás en crisis, llama al <strong>911</strong> o a la <strong>Línea de la Vida 800 911 2000</strong>.",
+  chatPlaceholder: "Escribe tu mensaje\u2026",
+  chatGreeting: "Hola, {name}. Tu resultado fue {score}/100 ({title}). ¿Quieres reflexionar sobre eso o preguntarme algo?",
+  chatGreetingNoName: "¡Hola! Tu resultado fue {score}/100 ({title}). ¿Quieres reflexionar sobre eso o preguntarme algo?",
+  shareText: "Mi resultado en \"¿Qué personalidad tienes?\" fue {score}/100: {title}. ¿Y tú qué personalidad tienes? Descúbrelo aquí \ud83d\udc49",
+  shareTextNamed: "{name} obtuvo {score}/100 en \"¿Qué personalidad tienes?\": {title}. ¿Y tú qué personalidad tienes? Descúbrelo aquí \ud83d\udc49",
+  globalStatFmt: "\ud83d\udcca El {pct}% de {total} personas también obtuvo \"{title}\".",
+  storyHintShared: "¡Listo! El enlace ya está copiado \ud83d\udccb. Para que entren con un toque: en historias de Instagram, Facebook o Snapchat agrégalo con el sticker \"Enlace\"; en X o WhatsApp pégalo en tu publicación. \ud83d\udc49 {url}",
+  storyHintDownload: "Imagen descargada \ud83d\udce5 y enlace copiado \ud83d\udccb. Súbela a tu historia y pega el enlace con el sticker \"Enlace\" (Instagram, Facebook, Snapchat) o pégalo en tu publicación (X, WhatsApp): {url}"
+};
+
+function t(key) {
+  if (langPack && langPack.ui && langPack.ui[key] != null) return langPack.ui[key];
+  return UI_ES[key] != null ? UI_ES[key] : key;
+}
+
+function applyUiText() {
+  const setHTML = (sel, key) => { const el = document.querySelector(sel); if (el) el.innerHTML = t(key); };
+  const setId = (id, key) => { const el = document.getElementById(id); if (el) el.textContent = t(key); };
+  setHTML(".title", "title");
+  setHTML(".subtitle", "subtitle");
+  setHTML(".intro", "intro");
+  setHTML(".disclaimer", "disclaimer");
+  setHTML(".name-label", "nameLabel");
+  setHTML(".help-box > summary", "helpSummary");
+  const hb = document.querySelector("#help-box p:not(.help-note)"); if (hb) hb.innerHTML = t("helpBody");
+  setHTML(".help-note", "helpNote");
+  const hl = document.querySelector("#help-box ul");
+  if (hl) { const arr = t("helpList"); if (Array.isArray(arr)) hl.innerHTML = arr.map((x) => "<li>" + x + "</li>").join(""); }
+  const sc = document.querySelectorAll(".scale-labels span");
+  if (sc.length >= 3) { sc[0].textContent = t("scaleLow"); sc[1].textContent = t("scaleMid"); sc[2].textContent = t("scaleHigh"); }
+  setHTML(".share-menu-title", "shareMenuTitle");
+  const am = document.querySelector("#achievements-modal .modal-title"); if (am) am.textContent = t("achModalTitle");
+  const cm = document.querySelector("#chat-modal .modal-title"); if (cm) cm.textContent = t("chatTitle");
+  setHTML(".chat-disclaimer", "chatDisclaimer");
+  setId("btn-start", "start"); setId("btn-back", "back"); setId("btn-retry", "retry"); setId("btn-home", "home");
+  setId("btn-prediction", "prediction"); setId("btn-chat", "chat"); setId("btn-share", "share"); setId("btn-story", "story");
+  setId("btn-copy", "copyLink"); setId("copy-ok", "copyOk"); setId("btn-close-ach", "close"); setId("btn-close-chat", "close");
+  document.querySelectorAll(".js-achievements").forEach((b) => (b.textContent = t("achievements")));
+  const pn = document.getElementById("player-name"); if (pn) pn.placeholder = t("namePlaceholder");
+  const ci = document.getElementById("chat-input"); if (ci) ci.placeholder = t("chatPlaceholder");
+}
+
+async function applyLanguage(lang) {
+  if (lang !== "es") {
+    try {
+      const res = await fetch("i18n/" + lang + ".json");
+      const pack = await res.json();
+      langPack = pack;
+      activePool = pack.questions || QUESTION_POOL;
+      activeResults = pack.results || RESULTS;
+      activePredictions = pack.predictions || PREDICTIONS;
+      activeAchievements = pack.achievements || ACHIEVEMENTS;
+    } catch (e) {
+      lang = "es";
+    }
+  }
+  if (lang === "es") {
+    langPack = null;
+    activePool = QUESTION_POOL; activeResults = RESULTS;
+    activePredictions = PREDICTIONS; activeAchievements = ACHIEVEMENTS;
+  }
+  LANG = lang;
+  document.documentElement.lang = lang;
+  try { localStorage.setItem("qpt_lang", lang); } catch (e) {}
+  applyUiText();
 }
 
 /* -----------------------------------------------------------
@@ -1082,6 +1194,8 @@ els.volumeSlider.addEventListener("input", () => {
   applyVolume(parseInt(els.volumeSlider.value, 10) / 100);
 });
 
+els.langSelect.addEventListener("change", () => { applyLanguage(els.langSelect.value); });
+
 els.btnPrediction.addEventListener("click", () => {
   els.predictionBox.textContent = buildPrediction();
   els.predictionBox.classList.remove("hidden");
@@ -1115,6 +1229,18 @@ els.chatInput.addEventListener("keydown", (e) => {
 ----------------------------------------------------------- */
 (function init() {
   loadBestScore();
+  // Idiomas: poblar el selector y aplicar el idioma guardado
+  LANGS.forEach((l) => {
+    const opt = document.createElement("option");
+    opt.value = l.code;
+    opt.textContent = l.name;
+    els.langSelect.appendChild(opt);
+  });
+  let savedLang = "es";
+  try { savedLang = localStorage.getItem("qpt_lang") || "es"; } catch (e) {}
+  if (!LANGS.some((l) => l.code === savedLang)) savedLang = "es";
+  els.langSelect.value = savedLang;
+  applyLanguage(savedLang);
   try {
     const savedTheme = localStorage.getItem("qpt_theme");
     const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;

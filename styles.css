@@ -716,3 +716,18 @@ body { transition: background-color 0.3s ease, color 0.3s ease; }
   cursor: pointer;
 }
 .chat-send:disabled { opacity: 0.5; cursor: default; }
+
+
+/* ---------- Selector de idioma ---------- */
+.lang-select {
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border: 2px solid var(--ink);
+  border-radius: 14px;
+  background: var(--card);
+  color: var(--ink);
+  padding: 4px 6px;
+  cursor: pointer;
+}
+.lang-select:focus { outline: none; border-color: var(--accent); }

@@ -1,0 +1,318 @@
+{
+  "ui": {
+    "title": "What's your<br />personality?",
+    "subtitle": "Self-reflection test",
+    "intro": "Answer a few questions honestly about how you act in social situations. At the end you'll get a result from <strong>1 to 100</strong> that estimates your tendency: from <em>allowing abuse</em> to <em>exerting abuse</em>.",
+    "lastResult": "Your last result:",
+    "nameLabel": "Your name (optional)",
+    "namePlaceholder": "Enter your name",
+    "start": "Start",
+    "disclaimer": "This test is only for personal reflection and entertainment. It is not a psychological diagnosis. If you or someone you know suffers violence or harassment, seek help from a professional or someone you trust.",
+    "back": "\u2190 Back",
+    "resultLabel": "Your result",
+    "resultLabelNamed": "{name}, your result is",
+    "scaleLow": "Abused",
+    "scaleMid": "Balance",
+    "scaleHigh": "Abuser",
+    "helpSummary": "Need help? Support resources",
+    "helpBody": "This test is only for reflection and entertainment; it is <strong>not a diagnosis</strong>. If you or someone you know experiences violence, harassment or emotional distress, you are not alone and you can ask for help:",
+    "helpList": [
+      "\ud83d\udea8 <strong>Emergencies (US):</strong> 911",
+      "\ud83d\udcac <strong>988 Suicide & Crisis Lifeline:</strong> call or text 988",
+      "\ud83c\udf0e Outside the US: look up your country's support or emergency line."
+    ],
+    "helpNote": "Talking to a professional or someone you trust helps.",
+    "prediction": "\ud83d\udd2e See my prediction",
+    "predictionNote": "(This is a playful interpretation based on your answers, not a real prediction.)",
+    "predictionYou": "You",
+    "chat": "\ud83d\udcac Talk to an assistant",
+    "share": "\ud83d\udce3 Share my result",
+    "story": "\ud83d\udcf8 Share as image (Stories)",
+    "shareMenuTitle": "Share on:",
+    "copyLink": "\ud83d\udccb Copy link and text",
+    "copyOk": "Copied! You can paste it anywhere now.",
+    "retry": "Try again",
+    "home": "Home",
+    "achievements": "\ud83c\udfc6 My achievements",
+    "achModalTitle": "\ud83c\udfc6 My achievements",
+    "close": "Close",
+    "chatTitle": "\ud83d\udcac Assistant",
+    "chatDisclaimer": "I'm not a health professional and this does not replace professional help. If you're in crisis, call 911 or the 988 Suicide & Crisis Lifeline.",
+    "chatPlaceholder": "Type your message\u2026",
+    "chatGreeting": "Hi, {name}. Your result was {score}/100 ({title}). Would you like to reflect on that or ask me something?",
+    "chatGreetingNoName": "Hi! Your result was {score}/100 ({title}). Would you like to reflect on that or ask me something?",
+    "shareText": "My result in \"What's your personality?\" was {score}/100: {title}. And you, what's your personality? Find out here \ud83d\udc49",
+    "shareTextNamed": "{name} got {score}/100 in \"What's your personality?\": {title}. And you, what's your personality? Find out here \ud83d\udc49",
+    "globalStatFmt": "\ud83d\udcca {pct}% of {total} people also got \"{title}\".",
+    "storyHintShared": "Done! The link is copied \ud83d\udccb. To let people enter with one tap: in your story (Instagram, Facebook or Snapchat) add the \"Link\" sticker; on X or WhatsApp paste it in your post. \ud83d\udc49 {url}",
+    "storyHintDownload": "Image downloaded \ud83d\udce5 and link copied \ud83d\udccb. Upload it to your story and paste the link with the \"Link\" sticker (Instagram, Facebook, Snapchat) or in your post (X, WhatsApp): {url}",
+    "storyTestLabel": "P E R S O N A L I T Y   T E S T",
+    "storyCta": "What's your personality?"
+  },
+  "questions": [
+    { "type": "text", "q": "When someone criticizes you in front of others...", "options": [
+      { "text": "I stay quiet and assume they're probably right.", "value": 0 },
+      { "text": "I go blank and don't react.", "value": 1 },
+      { "text": "I talk it through calmly to understand their point.", "value": 2 },
+      { "text": "I make it clear that no one talks to me like that.", "value": 3 },
+      { "text": "I hit back with something that embarrasses them in front of everyone.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone plays a mean joke on you...", "options": [
+      { "text": "I laugh even though it hurts inside.", "value": 0 },
+      { "text": "I pretend I didn't hear it.", "value": 1 },
+      { "text": "I clearly tell them I didn't like it.", "value": 2 },
+      { "text": "I warn them not to mess with me.", "value": 3 },
+      { "text": "I throw back an even more humiliating joke.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When facing a conflict, I usually...", "options": [
+      { "text": "Give in to avoid problems.", "value": 0 },
+      { "text": "Walk away and let it resolve itself.", "value": 1 },
+      { "text": "Look for a fair agreement for both.", "value": 2 },
+      { "text": "Impose what I want.", "value": 3 },
+      { "text": "Go all in to win, no matter the cost.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When I make a mistake in front of others...", "options": [
+      { "text": "I feel deep shame and blame myself.", "value": 0 },
+      { "text": "I stay quiet hoping nobody notices.", "value": 1 },
+      { "text": "I accept it and try to learn.", "value": 2 },
+      { "text": "I downplay it and carry on as if nothing happened.", "value": 3 },
+      { "text": "I look for someone else to blame.", "value": 4 }
+    ]},
+    { "type": "text", "q": "Saying \"no\" to others...", "options": [
+      { "text": "Is really hard for me, I almost never can.", "value": 0 },
+      { "text": "I avoid it: I stall or disappear.", "value": 1 },
+      { "text": "I do it respectfully when needed.", "value": 2 },
+      { "text": "I do it without caring about the rest.", "value": 3 },
+      { "text": "I do it bluntly so they won't insist.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If someone has something you want...", "options": [
+      { "text": "I think I don't deserve it.", "value": 0 },
+      { "text": "I let it go, I don't even try.", "value": 1 },
+      { "text": "I work to get my own.", "value": 2 },
+      { "text": "I do what it takes to get it myself.", "value": 3 },
+      { "text": "I find a way to take it from them.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone close is sad or crying...", "options": [
+      { "text": "I sink as much or more than that person.", "value": 0 },
+      { "text": "I don't know what to do and freeze.", "value": 1 },
+      { "text": "I try to listen and comfort them.", "value": 2 },
+      { "text": "I tell them what they must do to get over it.", "value": 3 },
+      { "text": "I think it's a weakness of theirs.", "value": 4 }
+    ]},
+    { "type": "text", "q": "On a team you usually...", "options": [
+      { "text": "Do whatever the others say.", "value": 0 },
+      { "text": "Stay unnoticed and contribute little.", "value": 1 },
+      { "text": "Contribute and listen equally.", "value": 2 },
+      { "text": "Want to lead and boss everyone around.", "value": 3 },
+      { "text": "Take credit for others' work.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If someone bumps into you \"by accident\" on the street...", "options": [
+      { "text": "I apologize myself, even if it wasn't my fault.", "value": 0 },
+      { "text": "I keep walking as if nothing happened.", "value": 1 },
+      { "text": "I calmly tell them to be careful.", "value": 2 },
+      { "text": "I demand respect from them.", "value": 3 },
+      { "text": "I shove them back or insult them.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When you get an order that seems unfair...", "options": [
+      { "text": "I obey even though it bothers me inside.", "value": 0 },
+      { "text": "I ignore it and act like I didn't hear it.", "value": 1 },
+      { "text": "I ask why, respectfully.", "value": 2 },
+      { "text": "I refuse and impose my will.", "value": 3 },
+      { "text": "I rebel and complain rudely.", "value": 4 }
+    ]},
+    { "type": "text", "q": "Facing criticism on social media...", "options": [
+      { "text": "I take it in silence and it affects me a lot.", "value": 0 },
+      { "text": "I ignore it completely and keep scrolling.", "value": 1 },
+      { "text": "I read it calmly and reply if it's worth it.", "value": 2 },
+      { "text": "I reply making clear that I'm right.", "value": 3 },
+      { "text": "I reply by attacking whoever it is.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone has a different opinion than yours...", "options": [
+      { "text": "I change mine to avoid arguing.", "value": 0 },
+      { "text": "I stay quiet and change the subject.", "value": 1 },
+      { "text": "I respect it even if I don't agree.", "value": 2 },
+      { "text": "I insist until they accept mine.", "value": 3 },
+      { "text": "I ridicule it so they go quiet.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If a group mocks someone, you...", "options": [
+      { "text": "Stay quiet, afraid of being next.", "value": 0 },
+      { "text": "Play dumb and walk away.", "value": 1 },
+      { "text": "Defend the person.", "value": 2 },
+      { "text": "Use it to look good with the group.", "value": 3 },
+      { "text": "Join in the mocking.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When you achieve something important...", "options": [
+      { "text": "I think it was luck, I don't deserve it.", "value": 0 },
+      { "text": "I don't mention it, I'd rather not draw attention.", "value": 1 },
+      { "text": "I'm glad and celebrate it in a healthy way.", "value": 2 },
+      { "text": "I make sure everyone knows it was me.", "value": 3 },
+      { "text": "I brag to feel above others.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If someone disrespects you...", "options": [
+      { "text": "I let it slide to avoid trouble.", "value": 0 },
+      { "text": "I walk away and avoid that person.", "value": 1 },
+      { "text": "I set a limit firmly and calmly.", "value": 2 },
+      { "text": "I make it clear they can't play with me.", "value": 3 },
+      { "text": "I respond with something even worse.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone doesn't keep a promise to you...", "options": [
+      { "text": "I justify it and say nothing.", "value": 0 },
+      { "text": "I say nothing but drift away.", "value": 1 },
+      { "text": "I calmly ask what happened.", "value": 2 },
+      { "text": "I demand they fulfill it right away.", "value": 3 },
+      { "text": "I expose them and make them feel bad.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If someone cuts in line in front of you...", "options": [
+      { "text": "I say nothing to avoid problems.", "value": 0 },
+      { "text": "I get annoyed inside but stay quiet.", "value": 1 },
+      { "text": "I calmly let them know there was a line.", "value": 2 },
+      { "text": "I demand they go to the back.", "value": 3 },
+      { "text": "I yell at them.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When you give your opinion in a group...", "options": [
+      { "text": "I'm afraid of being judged and barely speak.", "value": 0 },
+      { "text": "I prefer to stay quiet and just observe.", "value": 1 },
+      { "text": "I share it naturally.", "value": 2 },
+      { "text": "I impose it even if I interrupt others.", "value": 3 },
+      { "text": "I dismiss the opinions I don't like.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If a friend asks you for a favor you can't do...", "options": [
+      { "text": "I say yes even if it hurts me.", "value": 0 },
+      { "text": "I stall until they forget about it.", "value": 1 },
+      { "text": "I honestly explain why I can't.", "value": 2 },
+      { "text": "I just say no, period.", "value": 3 },
+      { "text": "I treat them badly for bothering me.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone raises their voice at you...", "options": [
+      { "text": "I freeze and end up obeying.", "value": 0 },
+      { "text": "I go blank, not knowing what to say.", "value": 1 },
+      { "text": "I stay calm and respond.", "value": 2 },
+      { "text": "I raise my voice even more than them.", "value": 3 },
+      { "text": "I threaten them so they shut up.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When something about another person bothers you...", "options": [
+      { "text": "I keep it in and put up with it.", "value": 0 },
+      { "text": "I say nothing and keep my distance.", "value": 1 },
+      { "text": "I tell them respectfully.", "value": 2 },
+      { "text": "I make it clear without sugarcoating.", "value": 3 },
+      { "text": "I throw it in their face harshly.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When you lose at a game or competition...", "options": [
+      { "text": "I feel I'm not good enough.", "value": 0 },
+      { "text": "I act like I don't care.", "value": 1 },
+      { "text": "I accept it and congratulate the other.", "value": 2 },
+      { "text": "I demand a rematch until I win.", "value": 3 },
+      { "text": "I get angry and look for someone to blame.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone ignores you on purpose...", "options": [
+      { "text": "I think I did something wrong and apologize.", "value": 0 },
+      { "text": "I let it go and quietly drift away.", "value": 1 },
+      { "text": "I directly ask if something's wrong.", "value": 2 },
+      { "text": "I make it clear that no one ignores me.", "value": 3 },
+      { "text": "I ignore them twice as hard to hurt them.", "value": 4 }
+    ]},
+    { "type": "text", "q": "If you have to ask for help...", "options": [
+      { "text": "I'm too embarrassed and prefer to suffer alone.", "value": 0 },
+      { "text": "I avoid it and try to manage on my own somehow.", "value": 1 },
+      { "text": "I ask for it naturally when I need it.", "value": 2 },
+      { "text": "I expect others to give it without me asking.", "value": 3 },
+      { "text": "I demand help as if they owed it to me.", "value": 4 }
+    ]},
+    { "type": "text", "q": "When someone's mistake affects you...", "options": [
+      { "text": "I take the blame to avoid discomfort.", "value": 0 },
+      { "text": "I say nothing even though it affects me.", "value": 1 },
+      { "text": "I solve it and talk about it calmly.", "value": 2 },
+      { "text": "I demand they fix it immediately.", "value": 3 },
+      { "text": "I scold them in front of everyone.", "value": 4 }
+    ]},
+    { "type": "image", "q": "Which face do you identify with when joining a new group?", "options": [
+      { "img": "\ud83d\ude1f", "label": "Insecure", "value": 0 },
+      { "img": "\ud83d\ude36", "label": "I go blank", "value": 1 },
+      { "img": "\ud83d\ude42", "label": "Calm", "value": 2 },
+      { "img": "\ud83d\ude0e", "label": "Dominant", "value": 3 },
+      { "img": "\ud83d\ude08", "label": "Provocative", "value": 4 }
+    ]},
+    { "type": "image", "q": "Choose the animal you identify with most:", "options": [
+      { "img": "\ud83d\udc11", "label": "Sheep", "value": 0 },
+      { "img": "\ud83d\udc22", "label": "Turtle", "value": 1 },
+      { "img": "\ud83d\udc2c", "label": "Dolphin", "value": 2 },
+      { "img": "\ud83e\udd81", "label": "Lion", "value": 3 },
+      { "img": "\ud83e\udd82", "label": "Scorpion", "value": 4 }
+    ]},
+    { "type": "image", "q": "Which posture best describes your usual body language?", "options": [
+      { "img": "\ud83d\ude47", "label": "Hunched", "value": 0 },
+      { "img": "\ud83d\udeb6", "label": "I walk away", "value": 1 },
+      { "img": "\ud83e\uddcd", "label": "Firm and calm", "value": 2 },
+      { "img": "\ud83d\udcaa", "label": "Imposing", "value": 3 },
+      { "img": "\ud83e\udd3a", "label": "On the attack", "value": 4 }
+    ]},
+    { "type": "image", "q": "Which emoji would you use most in an argument?", "options": [
+      { "img": "\ud83d\ude22", "label": "Sadness", "value": 0 },
+      { "img": "\ud83d\ude36", "label": "Speechless", "value": 1 },
+      { "img": "\ud83d\ude10", "label": "Calm", "value": 2 },
+      { "img": "\ud83d\ude24", "label": "Firmness", "value": 3 },
+      { "img": "\ud83d\ude20", "label": "Anger", "value": 4 }
+    ]},
+    { "type": "image", "q": "Choose the weather that reflects your character:", "options": [
+      { "img": "\ud83c\udf27\ufe0f", "label": "Rain", "value": 0 },
+      { "img": "\ud83c\udf2b\ufe0f", "label": "Fog", "value": 1 },
+      { "img": "\u26c5", "label": "Mild", "value": 2 },
+      { "img": "\ud83d\udca8", "label": "Strong wind", "value": 3 },
+      { "img": "\u26c8\ufe0f", "label": "Storm", "value": 4 }
+    ]},
+    { "type": "image", "q": "Choose the color that represents you today:", "options": [
+      { "img": "\ud83d\udd35", "label": "Blue / withdrawn", "value": 0 },
+      { "img": "\u26aa", "label": "White / neutral", "value": 1 },
+      { "img": "\ud83d\udfe2", "label": "Green / balance", "value": 2 },
+      { "img": "\ud83d\udfe0", "label": "Orange / drive", "value": 3 },
+      { "img": "\ud83d\udd34", "label": "Red / intensity", "value": 4 }
+    ]},
+    { "type": "image", "q": "Choose the scene where you feel best:", "options": [
+      { "img": "\ud83e\udee5", "label": "Going unnoticed", "value": 0 },
+      { "img": "\ud83d\udeaa", "label": "Being able to leave", "value": 1 },
+      { "img": "\ud83d\udc65", "label": "Among equals", "value": 2 },
+      { "img": "\ud83d\udc51", "label": "Being in charge", "value": 3 },
+      { "img": "\ud83d\udce2", "label": "Being the center", "value": 4 }
+    ]},
+    { "type": "image", "q": "When there's tension, your reaction is...", "options": [
+      { "img": "\ud83d\ude30", "label": "I get anxious", "value": 0 },
+      { "img": "\ud83e\uddca", "label": "I freeze", "value": 1 },
+      { "img": "\ud83e\uddd8", "label": "I breathe and calm down", "value": 2 },
+      { "img": "\ud83d\udde3\ufe0f", "label": "I take control", "value": 3 },
+      { "img": "\ud83d\udd25", "label": "I explode", "value": 4 }
+    ]}
+  ],
+  "results": [
+    { "min": 1, "max": 20, "title": "Very accommodating",
+      "desc": "You tend to put yourself last: you apologize even when it's not your fault, you almost always give in, and you find it very hard to defend what you feel. That can leave you exposed to being taken advantage of.",
+      "advice": "Tip: start with small limits. Your opinion and your needs matter too; saying \"no\" doesn't make you a bad person." },
+    { "min": 21, "max": 40, "title": "Avoidant / passive",
+      "desc": "Your way of protecting yourself is to avoid: you go blank, you ignore it, or you walk away when something bothers you. You don't mean harm, but by not expressing what you feel, problems often go unresolved.",
+      "advice": "Tip: practice saying what you think in the moment, even with a short, calm sentence. Avoiding conflict is not the same as resolving it." },
+    { "min": 41, "max": 60, "title": "Balanced and assertive",
+      "desc": "You know how to listen and also defend yourself. You speak calmly, set limits with respect, and look for fair agreements. It's the healthiest point of the spectrum: you neither get walked over nor walk over others.",
+      "advice": "Tip: keep that balance. Keep caring for both your limits and your empathy toward others." },
+    { "min": 61, "max": 80, "title": "Inclined to dominate",
+      "desc": "You like to be in control and sometimes impose your will over others. Firmness is a virtue, but be careful about crossing the line into imposition.",
+      "advice": "Tip: listen before responding. Healthy leadership convinces and adds up; it doesn't steamroll." },
+    { "min": 81, "max": 100, "title": "Very much a bully",
+      "desc": "You tend to impose yourself, win at others' expense, and downplay their feelings. These behaviors can harm your relationships and the people around you.",
+      "advice": "Tip: working on empathy can change lives, including yours. Before acting, ask yourself how the other person would feel." }
+  ],
+  "predictions": [
+    "it's very likely that more than once you said \"yes\" when you really wanted to say \"no\", and someone got used to leaning on your kindness. Maybe you carried things that weren't yours just to avoid discomfort. Today you could start setting small limits: your peace matters too.",
+    "there was surely a moment when you preferred to quietly walk away rather than face a conflict, and something that mattered to you went unresolved. Avoiding has protected you, but it has also kept you silent. Maybe it's time to calmly say what you feel.",
+    "it's likely that you once set a limit calmly and firmly, and that changed a relationship for the better. People tend to trust you because you're fair. Keep it up: that balance between listening and standing your ground is your greatest strength.",
+    "maybe in some group you ended up taking the lead and others followed you, because you have leadership in you. But perhaps someone once felt unheard. If you combine your strength with a little more listening, you'll go even further.",
+    "it's possible that an intense reaction on a bad day cost you a friendship or an opportunity. Your strong character defends you, but sometimes it also isolates you. Channeling that energy with empathy could open many doors for you."
+  ],
+  "achievements": [
+    { "id": "primer_paso", "icon": "\ud83c\udf31", "title": "First step", "desc": "You completed the test for the first time." },
+    { "id": "autoexploracion", "icon": "\ud83d\udd01", "title": "Self-exploration", "desc": "You completed the test 5 times." },
+    { "id": "equilibrio", "icon": "\u2696\ufe0f", "title": "Balance", "desc": "You got a balanced result (41-60)." },
+    { "id": "multifacetico", "icon": "\ud83c\udfad", "title": "Multifaceted", "desc": "You got 3 different profiles." },
+    { "id": "difusor", "icon": "\ud83d\udce3", "title": "Spreader", "desc": "You shared your result." },
+    { "id": "modo_noche", "icon": "\ud83c\udf19", "title": "Night mode", "desc": "You turned on dark mode." },
+    { "id": "autocuidado", "icon": "\ud83c\udd98", "title": "Self-care", "desc": "You checked the support resources." }
+  ]
+}
