@@ -1,6 +1,6 @@
 /* Service Worker — permite que el juego funcione sin internet (offline) */
 
-const CACHE = "qpt-cache-v17";
+const CACHE = "qpt-cache-v18";
 const ASSETS = [
   "./",
   "./index.html",
